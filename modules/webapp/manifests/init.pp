@@ -60,6 +60,14 @@ class webapp(
     group  => 'root',
   }
 
+  if $virtual == 'physical' {
+    file { $app_dir:
+      ensure => "directory",
+      owner  => $serverowner,
+      group  => $servergroup,
+    }
+  }
+
   # Replace default nginx config to use www-data
   file { "/etc/nginx/nginx.conf":
     ensure  => "file",
@@ -83,13 +91,5 @@ class webapp(
   user { $serverowner:
     ensure => present,
     groups => ["docker"],
-  }
-
-  if $virtual == 'physical' {
-    file { "/srv/app":
-      ensure => "directory",
-      owner  => $serverowner,
-      group  => $servergroup,
-    }
   }
 }
