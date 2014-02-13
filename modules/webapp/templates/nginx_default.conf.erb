@@ -2,7 +2,7 @@ server {
   listen 80;
   server_name <%= @server_name %>;
 
-  root <%= app_dir %>/static;
+  root <%= @app_dir %>/static;
 
   location / { try_files $uri @app; }
   location @app {
