@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>Java Examples</title>
+    <title>If Statement</title>
     <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
     <style type="text/css" media="screen">
     body {
@@ -210,19 +210,22 @@
 </div>
 
 <div id="main-container">
-    <h1>Hello World Example</h1>
-<div class="file-bar"><div class="file-tab">HelloWorld.java</div></div>
+    <h1>Basic If Statement</h1>
+<div class="file-bar"><div class="file-tab">IfStatement.java</div></div>
 <pre id="editor">
-public class HelloWorld {
+public class IfStatement {
     public static void main(String[] args) {
         System.out.println("Hello, World");
+        if (true) {
+            System.out.println("Hello, World");
+        }
     }
 }
 </pre>
 
     <p><button id="run-button" class="button success">Run</button> <button id="reset-button" class="button">Make Editable</button></p>
 
-    <pre id="output" class="hidden">Hello, World</pre>
+<pre id="output" class="hidden"></pre>
 
     <a href="http://www.cloudsigma.com/?utm_source=cloudsigma-poweredby-badge-140x27&utm_medium=Banner&utm_campaign=badge" style="outline:none"><img src="http://www.cloudsigma.com/uploads/banners/cloudsigma-poweredby-badge-140x27.png"></a>
 
@@ -231,21 +234,24 @@ public class HelloWorld {
     <div class="arrow-wrap"><i class="fa fa-info"></i></div>
     <h2>Exercises</h2>
     <h3>#1</h3>
-    <p>Make the program print:</p>
-    <p><strong>I, for one, welcome our new computer overlords</strong></p>
-    <h3>#2</h3>
-    <p>Make the program print your best limerick.</p>
+    <p>Make the program print "<strong>Hello, World</strong>" once instead of twice.</p>
 </div>
 
 <pre id="master-content" class="hidden">
-public class HelloWorld {
+public class IfStatment {
     public static void main(String[] args) {
         System.out.println("Hello, World");
+        if (true) {
+            System.out.println("Hello, World");
+        }
     }
 }
 </pre>
 
-    <pre id="master-output" class="hidden">Hello, World</pre>
+<pre id="master-output" class="hidden">
+Hello, World
+Hello, World
+</pre>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="js/vendor/ace/ace.js" type="text/javascript" charset="utf-8"></script>
@@ -259,7 +265,7 @@ public class HelloWorld {
 
         var options = {
             delay: 500,
-            className: 'HelloWorld'
+            className: 'IfStatement'
         };
 
         var labels = {
@@ -323,6 +329,3 @@ public class HelloWorld {
     </script>
 </body>
 </html>
-
-
-
