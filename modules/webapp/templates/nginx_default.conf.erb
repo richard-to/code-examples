@@ -4,7 +4,12 @@ server {
 
   root <%= @app_dir %>/static;
 
-  location / { try_files $uri @app; }
+  index index.html;
+
+  location / {
+    try_files $uri $uri/ @app;
+  }
+
   location @app {
     include uwsgi_params;
     uwsgi_pass unix:/var/run/uwsgi/uwsgi.sock;
