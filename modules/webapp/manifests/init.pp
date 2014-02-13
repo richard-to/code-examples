@@ -61,7 +61,7 @@ class webapp(
   }
 
   if $virtual == 'physical' {
-    file { [$app_dir, "${app_dir}/instance", "${app_dir}/instance/queue":
+    file { [$app_dir, "${app_dir}/instance", "${app_dir}/instance/queue"]:
       ensure => "directory",
       owner  => $serverowner,
       group  => $servergroup,
