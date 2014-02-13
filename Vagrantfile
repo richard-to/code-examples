@@ -21,6 +21,10 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "docker build -t rto/java /vagrant/docker_image;"
 
   config.vm.provision "puppet" do |puppet|
+    puppet.facter = {
+      "server_name" => "192.168.245.5",
+      "app_dir"     => "/vagrant/app"
+    }
     puppet.options = "--verbose --debug"
     puppet.module_path    = "modules"
     puppet.manifests_path = "manifests"

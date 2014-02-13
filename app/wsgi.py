@@ -9,10 +9,12 @@ from flask import Flask, escape, request
 
 javaClassNameRegex = re.compile("[a-zA-Z_$][a-zA-Z\d_$]*")
 
-app = Flask(__name__)
-app.debug = True
+app = Flask(__name__, instance_relative_config=True)
+app.config.from_object('default_settings')
+app.config.from_pyfile('settings.cfg', silent=True)
 
-base_dir = '/vagrant/app/compile_queue/'
+BASE_DIR = app.instance_path + app.config['COMPILE_QUEUE_DIR']
+
 
 @app.route('/compile', methods=['POST'])
 def compile():
@@ -22,7 +24,7 @@ def compile():
     code = request.form['code']
 
     temp_dir = ''.join(['java_', str(time.time()), '_', str(random.randint(1, 1000)), '/'])
-    directory = ''.join([base_dir, temp_dir])
+    directory = ''.join([BASE_DIR, temp_dir])
     filepath = ''.join([directory, className, '.java'])
     os.mkdir(directory)
 
@@ -59,4 +61,5 @@ def compile():
 
 
 if __name__ == '__main__':
-    app.run(host='192.168.245.5')
+    app.run(host=app.config['HOST'], port=app.config['PORT'])
+

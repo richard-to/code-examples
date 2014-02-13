@@ -1,9 +1,9 @@
 [uwsgi]
-base=/vagrant/app
+base=<%= app_dir %>
 app=wsgi
 module=%(app)
 pythonpath=%(base)
-socket=/tmp/uwsgi.sock
+socket=/tmp/uwsgi/app.sock
 chmod-socket=644
 callable=app
 logto=/var/log/uwsgi/%n.log

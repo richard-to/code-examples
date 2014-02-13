@@ -1,4 +1,7 @@
-class webapp() {
+class webapp(
+  $app_dir = '/vagrant/app',
+  $server_name = '192.168.245.5'
+  ) {
 
   # Main Variables
   $module_uri = 'puppet:///modules/webapp'
@@ -39,16 +42,16 @@ class webapp() {
     ensure => "directory",
   }
 
+  # Create uwsgi ini
+  file { "/etc/uwsgi/vassals/app_uwsgi.ini":
+    ensure => "file",
+    content => template('webapp/app_uwsgi.ini.erb'),
+  }
+
   # Create uwsgi upstart config
   file { "/etc/init/uwsgi.conf":
     ensure => "file",
     source => "${module_uri}/uwsgi.conf",
-  }
-
-  # Create uwsgi ini
-  file { "/etc/uwsgi/vassals/app_uwsgi.ini":
-    ensure => "file",
-    source => "${module_uri}/app_uwsgi.ini",
   }
 
   # Replace default nginx config to use www-data
@@ -62,7 +65,7 @@ class webapp() {
   # Add nginx config for app
   file { "/etc/nginx/conf.d/default.conf":
     ensure  => "file",
-    source  => "${module_uri}/nginx_default.conf",
+    content => template('webapp/nginx_default.conf.erb'),
     require => Package["nginx"],
     notify  => Service["nginx"],
   }
