@@ -61,8 +61,15 @@ class webapp(
   }
 
   if $virtual == 'physical' {
-    file { $app_dir:
+    file { [$app_dir, "${app_dir}/instance", "${app_dir}/instance/queue":
       ensure => "directory",
+      owner  => $serverowner,
+      group  => $servergroup,
+    }
+
+    file { "${app_dir}/instance/settings.cfg":
+      ensure => "file",
+      content => template('webapp/settings.cfg.erb'),
       owner  => $serverowner,
       group  => $servergroup,
     }
