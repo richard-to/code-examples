@@ -34,7 +34,7 @@ def compile():
     volume = ''.join([directory, ":/root/code"])
 
     proc = subprocess.Popen(
-        ["docker", "run", "-m=16m", "-v", volume, "rto/java", "/root/compile_and_run_java.sh", className],
+        ["docker", "run", "-m=32m", "-v", volume, "rto/java", "/root/compile_and_run_java.sh", className],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     stdout, stderr = proc.communicate()
