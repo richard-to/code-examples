@@ -84,4 +84,12 @@ class webapp(
     ensure => present,
     groups => ["docker"],
   }
+
+  if $virtual == 'physical' {
+    file { "/srv/app":
+      ensure => "directory",
+      owner  => $serverowner,
+      group  => $servergroup,
+    }
+  }
 }
