@@ -40,18 +40,24 @@ class webapp(
   # Create directory hold uwsgi configs
   file { ["/etc/uwsgi", "/etc/uwsgi/vassals"]:
     ensure => "directory",
+    owner  => 'root',
+    group  => 'root',
   }
 
   # Create uwsgi ini
   file { "/etc/uwsgi/vassals/app_uwsgi.ini":
     ensure => "file",
     content => template('webapp/app_uwsgi.ini.erb'),
+    owner  => 'root',
+    group  => 'root',
   }
 
   # Create uwsgi upstart config
   file { "/etc/init/uwsgi.conf":
     ensure => "file",
     source => "${module_uri}/uwsgi.conf",
+    owner  => 'root',
+    group  => 'root',
   }
 
   # Replace default nginx config to use www-data
@@ -60,6 +66,8 @@ class webapp(
     source  => "${module_uri}/nginx.conf",
     require => Package["nginx"],
     notify  => Service["nginx"],
+    owner  => 'root',
+    group  => 'root',
   }
 
   # Add nginx config for app
@@ -68,9 +76,11 @@ class webapp(
     content => template('webapp/nginx_default.conf.erb'),
     require => Package["nginx"],
     notify  => Service["nginx"],
+    owner  => 'root',
+    group  => 'root',
   }
 
-  user { "www-data":
+  user { $serverowner:
     ensure => present,
     groups => ["docker"],
   }
