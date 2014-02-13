@@ -3,7 +3,7 @@ base=<%= @app_dir %>
 app=wsgi
 module=%(app)
 pythonpath=%(base)
-socket=/tmp/uwsgi/app.sock
+socket=/var/run/uwsgi/uwsgi.sock
 chmod-socket=644
 callable=app
 logto=/var/log/uwsgi/%n.log
