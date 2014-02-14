@@ -31,10 +31,10 @@ def compile():
     with open(filepath, "wb") as file:
         file.write(code)
 
-    volume = ''.join([directory, ":/root/code"])
+    volume = ''.join([directory, ":/home/javabot/code"])
 
     proc = subprocess.Popen(
-        ["docker", "run", "-m=32m", "-v", volume, "rto/java", "/root/compile_and_run_java.sh", className],
+        ["docker", "run", "-n=false", "-m=32m", "-v", volume, "rto/java", className],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     stdout, stderr = proc.communicate()
