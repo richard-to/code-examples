@@ -10,7 +10,7 @@ ADD ./compile_and_run_java.sh /home/javabot/compile_and_run_java.sh
 RUN chmod 755 /home/javabot/compile_and_run_java.sh
 RUN chown javabot:javabot /home/javabot/compile_and_run_java.sh
 
-USER root
+USER javabot
 ENV HOME /home/javabot
 WORKDIR /home/javabot
 
