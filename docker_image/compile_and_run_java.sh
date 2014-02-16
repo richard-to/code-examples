@@ -1,7 +1,6 @@
 #!/bin/bash
 
-cd /home/javabot/code
-/usr/bin/javac $1.java
+/usr/bin/javac -d . code/$1.java
 if [ $? -eq 0 ]; then
     /usr/bin/timeout 10s /usr/bin/java $1
     if [ $? -eq 124 ]; then
