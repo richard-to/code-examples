@@ -46,11 +46,6 @@ def compile():
         pass
 
     try:
-        os.remove(''.join([directory, className, '.class']))
-    except OSError:
-        pass
-
-    try:
         os.rmdir(directory)
     except OSError:
         pass
