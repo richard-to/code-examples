@@ -24,6 +24,7 @@ def compile():
     code = request.form['code']
 
     temp_dir = ''.join(['java_', str(time.time()), '_', str(random.randint(1, 1000)), '/'])
+
     directory = ''.join([BASE_DIR, temp_dir])
     filepath = ''.join([directory, className, '.java'])
     os.mkdir(directory)
@@ -34,13 +35,13 @@ def compile():
     volume = ''.join([directory, ":/home/javabot/code"])
 
     proc = subprocess.Popen(
-        ["docker", "run", "-n=false", "-m=32m", "-v", volume, "rto/java", className],
+        ["docker", "run", "-n=false", "-m", "64m", "-v", volume, "rto/java", className],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     stdout, stderr = proc.communicate()
 
     try:
-        os.remove(''.join([directory, className, '.java']))
+        os.remove(filepath)
     except OSError:
         pass
 

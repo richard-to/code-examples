@@ -8,6 +8,10 @@ class webapp(
   $serverowner = 'www-data'
   $servergroup = 'www-data'
 
+
+  # Install pip
+  class { 'java': }
+
   # Install ningx
   class { 'nginx': }
 
