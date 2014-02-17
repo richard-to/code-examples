@@ -10,18 +10,7 @@
 <body>
     <div id="examples-container" class="sidebar">
         <div class="arrow-wrap align-right"><i class="fa fa-bars"></i></div>
-        <h2>Examples</h2>
-        <ul>
-            <li><a href="/">Hello World</a></li>
-            <li><a href="if-statement.html">If</a></li>
-            <li><a href="for-loop.html">For</a></li>
-        </ul>
-        <h2>Buggy Examples</h2>
-        <ul>
-            <li><a href="weird-loop.html">Weird Loop</a></li>
-            <li><a href="if-statement-2.html">If Loop</a></li>
-            <li><a href="missing-semicolon.html">error: ';' expected</a></li>
-        </ul>
+        {% include 'includes/sidebar.html' %}
     </div>
 
     <div id="main-container">

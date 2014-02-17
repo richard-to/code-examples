@@ -42,6 +42,11 @@ class DirHandler(object):
                 self.file_handler.process(handle, directory, dest_dir)
 
 
+class NullHandler(object):
+    def process(self, filename, src_dir, dest_dir):
+        pass
+
+
 class CopyHandler(object):
     def process(self, filename, src_dir, dest_dir):
         src_path = join(src_dir, filename)
@@ -56,6 +61,61 @@ class CopyHandler(object):
         with open(src_path, 'r') as fr:
             with open(dest_path, 'w') as fw:
                 fw.write(fr.read())
+
+
+class MenuBuilderHandler(object):
+    STATE_NONE = 0
+    STATE_META = 1
+    STATE_CODE = 2
+
+    DELIM_START_YAML = '---'
+    DELIM_END_YAML = '...'
+    DELIM_START_CODE = '*/'
+
+    EXT_JAVA = '.java'
+    EXT_HTML = '.html'
+
+    META_CODE = 'code'
+    META_CLASS_NAME = 'class_name'
+
+    def __init__(self, template, dest_basedir):
+        self.template = template
+        self.dest_basedir = dest_basedir
+        self.items = []
+
+    def process(self, filename, src_dir, dest_dir):
+        output_name = filename.replace(self.EXT_JAVA, self.EXT_HTML).lower()
+
+        src_path = join(src_dir, filename)
+        dest_path = join(dest_dir, output_name).replace(self.dest_basedir, '')
+
+        meta = []
+        state = self.STATE_NONE
+
+        # TODO(richard-to): Maybe use state pattern here later on
+        with open(src_path, 'r') as f:
+            for line in f:
+                if line.rstrip() == self.DELIM_START_YAML:
+                    state = self.STATE_META
+                    meta.append(line)
+                elif line.rstrip() == self.DELIM_END_YAML:
+                    state = self.STATE_NONE
+                    meta.append(line)
+                elif line.rstrip() == self.DELIM_START_CODE:
+                    break
+                elif state == self.STATE_META:
+                    meta.append(line)
+
+        meta = load(''.join(meta))
+        self.items.append({
+            'title': meta['title'],
+            'permalink': dest_path
+        })
+
+    def create_menu(self, dest_path):
+        with open(dest_path, 'w') as f:
+            f.write(self.template.render({'menu':self.items}))
+
 
 
 class JavaHandler(object):
@@ -128,19 +188,31 @@ def main():
 
     TEMPLATES_DIR = 'src/_templates'
     EXAMPLES_TPL_NAME = 'examples.tpl.html'
+    SIDEBAR_TPL_NAME = 'sidebar.tpl.html'
+
+    SIDEBAR_INCLUDE = ''.join([TEMPLATES_DIR, '/includes/sidebar.html'])
 
     env = Environment(loader=PackageLoader(__name__, TEMPLATES_DIR))
-    examples_tpl = env.get_template(EXAMPLES_TPL_NAME)
 
+    sidebar_tpl = env.get_template(SIDEBAR_TPL_NAME)
+    menu_builder_handler = MenuBuilderHandler(sidebar_tpl, SITE_DIR)
+    sidebar_actions = {
+        MenuBuilderHandler.EXT_JAVA: menu_builder_handler
+    }
+    sidebar_default_action = NullHandler()
+    sidebar_file_handler = FileHandler(sidebar_actions, sidebar_default_action)
+    menu_builder = DirHandler(SRC_DIR, SITE_DIR, sidebar_file_handler)
+    menu_builder.process()
+    menu_builder_handler.create_menu(SIDEBAR_INCLUDE)
+
+    examples_tpl = env.get_template(EXAMPLES_TPL_NAME)
     file_actions = {
         JavaHandler.EXT_JAVA: JavaHandler(examples_tpl)
     }
-
     default_action = CopyHandler()
     file_handler = FileHandler(file_actions, default_action)
-    dir_handler = DirHandler(SRC_DIR, SITE_DIR, file_handler)
-    dir_handler.process()
-
+    site_builder = DirHandler(SRC_DIR, SITE_DIR, file_handler)
+    site_builder.process()
 
 if __name__ == '__main__':
     main()
