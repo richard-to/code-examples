@@ -142,9 +142,6 @@ class JavaHandler(object):
         src_path = join(src_dir, filename)
         dest_path = join(dest_dir, output_name)
 
-        if exists(dest_path) and getmtime(src_path) <= getmtime(dest_path):
-            return
-
         code = []
         meta = []
         state = self.STATE_NONE

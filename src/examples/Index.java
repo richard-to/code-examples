@@ -1,6 +1,6 @@
 /*
 ---
-title: Java Examples
+title: Java Examples Home
 class_name: HelloWorld
 exercises:
     - |

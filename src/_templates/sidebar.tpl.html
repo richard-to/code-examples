@@ -1,5 +1,7 @@
 <ul>
 {% for item in menu %}
+    {% if not item.hide %}
     <li><a href="{{item.permalink}}">{{item.title}}</a></li>
+    {% endif %}
 {% endfor %}
 </ul>

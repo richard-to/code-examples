@@ -1,6 +1,6 @@
 /*
 ---
-title: Hello World Example
+title: Hello World
 
 exercises:
     - |
