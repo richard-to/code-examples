@@ -1,5 +1,6 @@
 class webapp(
-  $app_dir = '/vagrant/app',
+  $api_server_dir = '/vagrant/api_server',
+  $site_dir = '/vagrant/site',
   $server_name = '192.168.245.5'
   ) {
 
@@ -65,13 +66,13 @@ class webapp(
   }
 
   if $virtual == 'physical' {
-    file { [$app_dir, "${app_dir}/instance", "${app_dir}/instance/queue"]:
+    file { [$api_server_dir, "${api_server_dir}/instance", "${api_server_dir}/instance/queue"]:
       ensure => "directory",
       owner  => $serverowner,
       group  => $servergroup,
     }
 
-    file { "${app_dir}/instance/settings.cfg":
+    file { "${api_server_dir}/instance/settings.cfg":
       ensure => "file",
       content => template('webapp/settings.cfg.erb'),
       owner  => $serverowner,

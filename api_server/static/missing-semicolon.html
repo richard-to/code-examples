@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Weird Hello World</title>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+    <style type="text/css" media="screen">
+    body {
+        background: #fafafa;
+        color: #666;
+        font-family: arial;
+        padding: 0;
+        height: 100%;
+    }
+
+    h1 {
+        color: #444;
+        font-size: 24px;
+    }
+
+    div > h1:first-child {
+        margin-top: 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .align-right {
+        text-align: right;
+    }
+
+    .button {
+        background: #4e5d6c;
+        border: none;
+        color: #fafafa;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 14px;
+        line-height: 1;
+        margin-right: 15px;
+        padding: 10px 21px;
+        text-decoration: none;
+    }
+
+    .button:hover {
+        background: #485563;
+    }
+
+    .button.success {
+        background: #5cb85c;
+    }
+
+    .button.success:hover {
+        background: #47a447;
+    }
+
+    .arrow-wrap {
+        padding: 15px;
+    }
+
+    .sidebar {
+        background: #f1f1f1;
+        color: #666;
+        box-sizing: border-box;
+        position:fixed;
+        height: 100%;
+        overflow:hidden;
+        padding: 0;
+        top:0;
+        left: 0;
+        width: 40px;
+        z-index: 100;
+    }
+
+    .sidebar:hover {
+        width: 250px;
+    }
+
+    .sidebar-left {
+        left: auto;
+        right: 0;
+    }
+
+    .sidebar h2 {
+        font-size: 18px;
+        background: #d2d2d2;
+        display :none;
+        margin: 0;
+        padding: 15px;
+    }
+
+    .sidebar h3 {
+        font-size: 16px;
+        background: #dfdfdf;
+        display :none;
+        margin: 0;
+        padding: 15px;
+    }
+
+    .sidebar ul {
+        font-size: 14px;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+    }
+
+    .sidebar a {
+        display: inline-block;
+        color: #1073a9;
+        font-weight: bold;
+        text-decoration: none;
+        width: 100%;
+        padding: 10px;
+    }
+
+    .sidebar a:hover {
+        background: #f8f8f8;
+    }
+
+    .sidebar li {
+        margin: 0;
+        padding: 0;
+    }
+
+    .sidebar p {
+        padding: 0 15px;
+    }
+
+    .sidebar h2,
+    .sidebar ul,
+    .sidebar p {
+        display: none;
+    }
+
+    .sidebar:hover {
+        overflow-y: auto;
+    }
+
+    .sidebar:hover .arrow-wrap {
+        display: none;
+    }
+
+    .sidebar:hover h2,
+    .sidebar:hover h3,
+    .sidebar:hover ul,
+    .sidebar:hover p {
+        display: block;
+    }
+
+    #main-container {
+        box-sizing: border-box;
+        margin-left: 2%;
+        position: relative;
+        overflow: hidden;
+        padding: 5px 40px;
+        width: 96%;
+    }
+
+    .file-bar {
+        background: #4e5d6c;
+        border: none;
+        box-sizing: border-box;
+        color: #ebebeb;
+        font-size: 16px;
+        line-height: 1;
+        width: 100%;
+    }
+
+    .file-tab {
+        display:inline-block;
+        background: #485563;
+        padding: 15px 15px;
+    }
+
+    #editor {
+        height: 500px;
+        width: 100%;
+        padding-top:10px;
+        margin-top: 0;
+    }
+
+    #output {
+        border: 1px solid #1a2c3d;
+        color: #fafafa;
+        background: #2b3e50;
+        box-sizing: border-box;
+        padding: 15px;
+        width: 100%;
+    }
+    </style>
+</head>
+<body>
+<div id="examples-container" class="sidebar">
+    <div class="arrow-wrap align-right"><i class="fa fa-bars"></i></div>
+    <h2>Examples</h2>
+    <ul>
+        <li><a href="/">Hello World</a></li>
+        <li><a href="if-statement.html">If</a></li>
+        <li><a href="for-loop.html">For</a></li>
+    </ul>
+    <h2>Buggy Examples</h2>
+    <ul>
+        <li><a href="weird-loop.html">Weird Loop</a></li>
+        <li><a href="if-statement-2.html">If Loop</a></li>
+        <li><a href="missing-semicolon.html">error: ';' expected</a></li>
+    </ul>
+</div>
+
+<div id="main-container">
+    <h1>Weird Hello World</h1>
+<div class="file-bar"><div class="file-tab">HelloWorld.java</div></div>
+<pre id="editor">
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World")
+    }
+}
+
+</pre>
+
+    <p><button id="run-button" class="button success">Run</button> <button id="reset-button" class="button">Make Editable</button></p>
+
+<pre id="output" class="hidden"></pre>
+
+    <a href="http://www.cloudsigma.com/?utm_source=cloudsigma-poweredby-badge-140x27&utm_medium=Banner&utm_campaign=badge" style="outline:none"><img src="http://www.cloudsigma.com/uploads/banners/cloudsigma-poweredby-badge-140x27.png"></a>
+
+</div>
+<div id="exercises-container" class="sidebar sidebar-left">
+    <div class="arrow-wrap"><i class="fa fa-info"></i></div>
+    <h2>Exercises</h2>
+    <h3>#1</h3>
+    <p>Make the program print "<strong>Hello, World</strong>"</p>
+</div>
+
+<pre id="master-content" class="hidden">
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World")
+    }
+}
+</pre>
+
+<pre id="master-output" class="hidden">
+HelloWorld.java:3: error: ';' expected
+        System.out.println("Hello, World")
+                                          ^
+1 error
+</pre>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="js/vendor/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/xcode");
+        editor.getSession().setMode("ace/mode/java");
+        editor.setReadOnly(true);
+        document.getElementById('editor').style.fontSize='16px';
+        document.getElementById('editor').style.lineHeight='1.5';
+
+        var options = {
+            delay: 500,
+            className: 'HelloWorld'
+        };
+
+        var labels = {
+            reset: "Reset",
+            edit: "Make Editable",
+            run: "Run",
+            compiling: "Compiling your code...",
+            server_error: 'Sorry we encountered a server error.'
+        };
+
+        var masterContentEl = document.getElementById('master-content');
+        var masterOutputEl = document.getElementById('master-output');
+        var outputEl = document.getElementById('output');
+        var runButtonEl = document.getElementById('run-button');
+        var resetButtonEl = document.getElementById('reset-button');
+
+        runButtonEl.addEventListener('click', function() {
+            var onCompile = function(output) {
+                outputEl.style.display = 'block';
+                outputEl.innerHTML = output;
+                runButtonEl.disabled = false;
+                resetButtonEl.disabled = false;
+                runButtonEl.innerHTML = labels.run;
+            };
+
+            runButtonEl.disabled = true;
+            resetButtonEl.disabled = true;
+            runButtonEl.innerHTML = labels.compiling;
+            if (editor.getReadOnly()) {
+                setTimeout(function() {
+                    onCompile(masterOutputEl.innerHTML);
+
+                }, options.delay);
+            } else {
+                var postData = {
+                    className: options.className,
+                    code: editor.getValue()
+                };
+                $.post("/compile", postData, function(data) {
+                    onCompile(data);
+                })
+                .fail(function() {
+                    onCompile(labels.server_error)
+                })
+            }
+        });
+
+        resetButtonEl.addEventListener('click', function() {
+            outputEl.style.display ='none';
+            outputEl.innerHTML = '';
+            if (editor.getReadOnly()) {
+                resetButtonEl.innerHTML = labels.reset;
+                editor.setReadOnly(false);
+            } else {
+                resetButtonEl.innerHTML = labels.edit;
+                editor.setValue(masterContentEl.innerHTML);
+                editor.setReadOnly(true);
+            }
+        });
+
+    </script>
+</body>
+</html>
