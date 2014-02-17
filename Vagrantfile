@@ -22,8 +22,9 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "puppet" do |puppet|
     puppet.facter = {
-      "server_name" => "192.168.245.5",
-      "app_dir"     => "/vagrant/app"
+      "api_server_dir" => "/vagrant/api_server",
+      "site_dir"       => "/vagrant/site",
+      "server_name"    => "192.168.245.5",
     }
     puppet.options = "--verbose --debug"
     puppet.module_path    = "modules"
