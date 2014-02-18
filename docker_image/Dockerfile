@@ -1,6 +1,7 @@
 from dockerfile/java
 
 RUN apt-get install -y g++
+RUN apt-get install -y junit4
 
 RUN addgroup --system javabot
 RUN adduser --system --shell /bin/bash --uid 5000 --disabled-password  --home /home/javabot javabot

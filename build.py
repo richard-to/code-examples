@@ -7,48 +7,64 @@ from jinja2 import Environment, PackageLoader
 from yaml import load, dump
 
 
-class FileHandler(object):
+class HandlerMeta(object):
+    def __init__(self, src_basedir, dest_basedir, test_basedir):
+        self.src_basedir = src_basedir
+        self.dest_basedir = dest_basedir
+        self.test_basedir = test_basedir
 
-    def __init__(self, file_actions, default_action):
-        self.file_actions = file_actions
-        self.default_action = default_action
+    def convertToDest(self, path):
+        return path.replace(self.src_basedir, self.dest_basedir)
 
-    def process(self, filename, src_dir, dest_dir):
-        filename_without_ext, ext = splitext(filename)
-        if ext in self.file_actions:
-            self.file_actions[ext].process(filename, src_dir, dest_dir)
-        else:
-            self.default_action.process(filename, src_dir, dest_dir)
+    def getTestDir(self):
+        return self.test_basedir
 
 
-class DirHandler(object):
-    IGNORE_PREFIX = '_'
+class DirWalker(object):
+    def __init__(self, handlers):
+        self.handlers = handlers
 
-    def __init__(self, src_dir, dest_dir, file_handler):
-        self.file_handler = file_handler
-        self.src_basedir = src_dir
-        self.dest_basedir = dest_dir
+    def walk(self, handler_meta):
+        self._walk(handler_meta.src_basedir, handler_meta)
 
-    def process(self):
-        self._walk(self.src_basedir)
-
-    def _walk(self, directory):
+    def _walk(self, directory, handler_meta):
         for handle in listdir(directory):
             handle_path = join(directory, handle)
-            if isdir(handle_path) and not handle.startswith(self.IGNORE_PREFIX):
-                self._walk(handle_path)
-            elif isfile(handle_path):
-                dest_dir = directory.replace(self.src_basedir, self.dest_basedir)
-                self.file_handler.process(handle, directory, dest_dir)
+            compatible = False
+            for handler in self.handlers:
+                if handler.compatible(handle, handle_path):
+                    compatible = True
+                    handler.process(handle, directory, handler_meta)
+                    break
+            if not compatible and isdir(handle_path):
+                self._walk(handle_path, handler_meta)
 
 
-class NullHandler(object):
-    def process(self, filename, src_dir, dest_dir):
+class SkipDirHandler(object):
+    def __init__(self, prefix):
+        self.prefix = prefix
+
+    def compatible(self, handle, handle_path):
+        if isdir(handle_path):
+            return handle.startswith(self.prefix)
+        return False
+
+    def process(self, filename, src_dir, handler_meta):
         pass
 
 
 class CopyHandler(object):
-    def process(self, filename, src_dir, dest_dir):
+    def __init__(self, filetypes=[]):
+        self.filetypes = filetypes
+
+    def compatible(self, handle, handle_path):
+        ext = None
+        if isfile(handle_path):
+            filename, ext = splitext(handle)
+        return ext in self.filetypes
+
+    def process(self, filename, src_dir, handler_meta):
+        dest_dir = handler_meta.convertToDest(src_dir)
         src_path = join(src_dir, filename)
         dest_path = join(dest_dir, filename)
 
@@ -63,7 +79,7 @@ class CopyHandler(object):
                 fw.write(fr.read())
 
 
-class MenuBuilderHandler(object):
+class JavaExerciseHandler(object):
     STATE_NONE = 0
     STATE_META = 1
     STATE_CODE = 2
@@ -75,20 +91,34 @@ class MenuBuilderHandler(object):
     EXT_JAVA = '.java'
     EXT_HTML = '.html'
 
+    TESTFILE_SUFFIX = 'Test'
+
     META_CODE = 'code'
     META_CLASS_NAME = 'class_name'
+    META_TYPE = 'type'
 
-    def __init__(self, template, dest_basedir):
+    META_TYPE_DEFAULT = 'default'
+    META_TYPE_STUB = 'stub'
+
+    def __init__(self, exercise_folder, template):
+        self.exercise_folder = exercise_folder
         self.template = template
-        self.dest_basedir = dest_basedir
-        self.items = []
 
-    def process(self, filename, src_dir, dest_dir):
-        output_name = filename.replace(self.EXT_JAVA, self.EXT_HTML).lower()
+    def compatible(self, handle, handle_path):
+        return isdir(handle_path) and handle_path.endswith(join(self.exercise_folder, handle))
 
-        src_path = join(src_dir, filename)
-        dest_path = join(dest_dir, output_name).replace(self.dest_basedir, '')
+    def process(self, handle, src_dir, handler_meta):
 
+        filename = ''.join([handle, self.EXT_JAVA])
+        output_name = ''.join([handle.lower(), self.EXT_HTML])
+        dest_dir = handler_meta.convertToDest(src_dir)
+        src_path = join(src_dir, handle, filename)
+        dest_path = join(dest_dir, output_name)
+
+        testfile = ''.join([handle, self.TESTFILE_SUFFIX, self.EXT_JAVA])
+        test_dir = handler_meta.getTestDir()
+
+        code = []
         meta = []
         state = self.STATE_NONE
 
@@ -102,23 +132,38 @@ class MenuBuilderHandler(object):
                     state = self.STATE_NONE
                     meta.append(line)
                 elif line.rstrip() == self.DELIM_START_CODE:
-                    break
+                    state = self.STATE_CODE
                 elif state == self.STATE_META:
                     meta.append(line)
+                elif state == self.STATE_CODE:
+                    code.append(line)
 
         meta = load(''.join(meta))
-        self.items.append({
-            'title': meta['title'],
-            'permalink': dest_path
-        })
+        meta[self.META_CLASS_NAME] = filename[:-len(self.EXT_JAVA)]
 
-    def create_menu(self, dest_path):
+        code = ''.join(code)
+
+        if self.META_TYPE not in meta:
+            meta[self.META_TYPE] = self.META_TYPE_DEFAULT
+
+        if meta[self.META_TYPE] == self.META_TYPE_DEFAULT:
+            meta[self.META_CODE] = code.strip()
+        else:
+            with open(join(test_dir, filename), 'w') as fw:
+                fw.write(code)
+
+        if not exists(dest_dir):
+            makedirs(dest_dir)
+
         with open(dest_path, 'w') as f:
-            f.write(self.template.render({'menu':self.items}))
+            f.write(self.template.render(meta))
+
+        with open(join(src_dir, handle, testfile), 'r') as fr:
+            with open(join(test_dir, testfile), 'w') as fw:
+                fw.write(fr.read())
 
 
-
-class JavaHandler(object):
+class JavaExampleHandler(object):
     STATE_NONE = 0
     STATE_META = 1
     STATE_CODE = 2
@@ -136,9 +181,15 @@ class JavaHandler(object):
     def __init__(self, template):
         self.template = template
 
-    def process(self, filename, src_dir, dest_dir):
-        output_name = filename.replace(self.EXT_JAVA, self.EXT_HTML).lower()
+    def compatible(self, handle, handle_path):
+        ext = None
+        if isfile(handle_path):
+            filename, ext = splitext(handle)
+        return ext == self.EXT_JAVA
 
+    def process(self, filename, src_dir, handler_meta):
+        output_name = filename.replace(self.EXT_JAVA, self.EXT_HTML).lower()
+        dest_dir = handler_meta.convertToDest(src_dir)
         src_path = join(src_dir, filename)
         dest_path = join(dest_dir, output_name)
 
@@ -182,34 +233,33 @@ def main():
     # TODO(richard-to): Move hardcoded settings out of here
     SRC_DIR = 'src'
     SITE_DIR = 'site'
+    TEST_DIR = 'api_server/instance/tests'
+
+    COPY_FILES = ['.js', '.css']
+    IGNORE_DIRS = '_'
+    EXERCISES_DIR = 'exercises'
 
     TEMPLATES_DIR = 'src/_templates'
     EXAMPLES_TPL_NAME = 'examples.tpl.html'
+    EXERCISES_TPL_NAME = 'exercises.tpl.html'
     SIDEBAR_TPL_NAME = 'sidebar.tpl.html'
 
     SIDEBAR_INCLUDE = ''.join([TEMPLATES_DIR, '/includes/sidebar.html'])
 
     env = Environment(loader=PackageLoader(__name__, TEMPLATES_DIR))
-
-    sidebar_tpl = env.get_template(SIDEBAR_TPL_NAME)
-    menu_builder_handler = MenuBuilderHandler(sidebar_tpl, SITE_DIR)
-    sidebar_actions = {
-        MenuBuilderHandler.EXT_JAVA: menu_builder_handler
-    }
-    sidebar_default_action = NullHandler()
-    sidebar_file_handler = FileHandler(sidebar_actions, sidebar_default_action)
-    menu_builder = DirHandler(SRC_DIR, SITE_DIR, sidebar_file_handler)
-    menu_builder.process()
-    menu_builder_handler.create_menu(SIDEBAR_INCLUDE)
-
     examples_tpl = env.get_template(EXAMPLES_TPL_NAME)
-    file_actions = {
-        JavaHandler.EXT_JAVA: JavaHandler(examples_tpl)
-    }
-    default_action = CopyHandler()
-    file_handler = FileHandler(file_actions, default_action)
-    site_builder = DirHandler(SRC_DIR, SITE_DIR, file_handler)
-    site_builder.process()
+    exercises_tpl = env.get_template(EXERCISES_TPL_NAME)
+
+    handler_meta = HandlerMeta(SRC_DIR, SITE_DIR, TEST_DIR)
+
+    skipdir_handler = SkipDirHandler('_')
+    java_exercise_handler = JavaExerciseHandler(EXERCISES_DIR, env.get_template(exercises_tpl))
+    copy_handler = CopyHandler(COPY_FILES)
+    java_example_handler = JavaExampleHandler(env.get_template(examples_tpl))
+
+    dirwalker = DirWalker([skipdir_handler, java_exercise_handler, copy_handler, java_example_handler])
+    dirwalker.walk(handler_meta)
+
 
 if __name__ == '__main__':
     main()

@@ -10,8 +10,14 @@ class webapp(
   $servergroup = 'www-data'
 
 
-  # Install pip
+  # Install java
   class { 'java': }
+
+  # Install junit4
+  package { 'junit4':
+    ensure => installed,
+    require => Package['oracle-java7-installer'],
+  }
 
   # Install ningx
   class { 'nginx': }
