@@ -60,7 +60,7 @@ function init_editor(options) {
             editor.setReadOnly(false);
         } else {
             resetButtonEl.innerHTML = labels.edit;
-            editor.setValue(masterContentEl.innerHTML);
+            editor.setValue(masterContentEl.childNodes[0].nodeValue);
             editor.setReadOnly(true);
         }
     });

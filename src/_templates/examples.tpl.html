@@ -17,7 +17,7 @@
         <h1>{{title}}</h1>
 
         <div class="file-bar"><div class="file-tab">{{class_name}}.java</div></div>
-        <pre id="editor">{{code}}</pre>
+        <pre id="editor">{{code|e}}</pre>
 
         <p><button id="run-button" class="button success">Run</button> <button id="reset-button" class="button">Make Editable</button></p>
 
@@ -35,7 +35,7 @@
         {% endfor %}
     </div>
 
-    <pre id="master-content" class="hidden">{{code}}</pre>
+    <pre id="master-content" class="hidden">{{code|e}}</pre>
 
     <pre id="master-output" class="hidden">{{output}}</pre>
 
