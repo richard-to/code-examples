@@ -1,12 +1,12 @@
-import org.junit.Test;
-import static org.junit.Assert.assertEquals;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 public class Variables1Test
 {
-    @Test
+    @Test(description="Test greeting variable contains 'Hello'")
     public void testGreetingVariable()
     {
         Variables1 variables1 = new Variables1();
-        assertEquals(variables1.getGreeting(), "Hello");
+        Assert.assertEquals(variables1.getGreeting(), "Hello");
     }
 }

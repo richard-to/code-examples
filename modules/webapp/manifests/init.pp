@@ -19,6 +19,12 @@ class webapp(
     require => Package['oracle-java7-installer'],
   }
 
+  # Install TestNG
+  package { 'testng':
+    ensure => installed,
+    require => Package['oracle-java7-installer'],
+  }
+
   # Install ningx
   class { 'nginx': }
 
