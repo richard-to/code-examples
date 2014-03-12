@@ -19,8 +19,10 @@ TESTS_DIR = app.instance_path + app.config['TESTS_DIR']
 
 TYPE_EXAMPLE = '1'
 TYPE_EXERCISE = '2'
+TYPE_CPP = '3'
 
 JAVA_EXT = '.java'
+CPP_EXT = '.cpp'
 TEST_FILE_SUFFIX = 'Test'
 STUB_MARKER = '//INSERT_SNIPPET'
 
@@ -125,6 +127,47 @@ def compile_java_exercise():
     else:
         return escape(stdout)
 
+
+@app.route('/compile/cpp', methods=['POST'])
+def compile_cpp():
+    className = request.form['className']
+    if not javaClassNameRegex.match(className):
+        return escape("Invalid file name.")
+
+    code = request.form['code']
+
+    temp_dir = ''.join(['cpp_', str(time.time()), '_', str(random.randint(1, 1000)), '/'])
+    filename =  ''.join([className, CPP_EXT])
+
+    directory = join(BASE_DIR, temp_dir)
+    filepath = join(directory, filename)
+
+    os.mkdir(directory)
+    with open(filepath, "wb") as file:
+        file.write(code)
+
+    volume = ':'.join([directory, app.config['DOCKER_VOLUME']])
+
+    proc = subprocess.Popen(
+        ["docker", "run", "-n=false", "-rm", "-m", "64m", "-v", volume, "rto/java", TYPE_CPP, className],
+        stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+
+    stdout, stderr = proc.communicate()
+
+    try:
+        os.remove(filepath)
+    except OSError:
+        pass
+
+    try:
+        os.rmdir(directory)
+    except OSError:
+        pass
+
+    if stderr:
+        return escape(stderr)
+    else:
+        return escape(stdout)
 
 if __name__ == '__main__':
     app.run(host=app.config['HOST'], port=app.config['PORT'])

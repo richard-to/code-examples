@@ -178,8 +178,13 @@ class JavaExampleHandler(object):
     META_CODE = 'code'
     META_CLASS_NAME = 'class_name'
 
-    def __init__(self, template):
+    TPL_ENDPOINT = 'endpoint'
+    TPL_ACE_MODE = 'ace_mode'
+    TPL_FILE_TYPE = 'file_type'
+
+    def __init__(self, template, template_vars):
         self.template = template
+        self.template_vars = template_vars
 
     def compatible(self, handle, handle_path):
         ext = None
@@ -224,6 +229,82 @@ class JavaExampleHandler(object):
         if not exists(dest_dir):
             makedirs(dest_dir)
 
+        for key in self.template_vars:
+            meta[key] = self.template_vars[key]
+
+        with open(dest_path, 'w') as f:
+            f.write(self.template.render(meta))
+
+
+class CPPExampleHandler(object):
+    STATE_NONE = 0
+    STATE_META = 1
+    STATE_CODE = 2
+
+    DELIM_START_YAML = '---'
+    DELIM_END_YAML = '...'
+    DELIM_START_CODE = '*/'
+
+    EXT_CPP = '.cpp'
+    EXT_HTML = '.html'
+
+    META_CODE = 'code'
+    META_CLASS_NAME = 'class_name'
+
+    TPL_ENDPOINT = 'endpoint'
+    TPL_ACE_MODE = 'ace_mode'
+    TPL_FILE_TYPE = 'file_type'
+
+    def __init__(self, template, template_vars):
+        self.template = template
+        self.template_vars = template_vars
+
+    def compatible(self, handle, handle_path):
+        ext = None
+        if isfile(handle_path):
+            filename, ext = splitext(handle)
+        return ext == self.EXT_CPP
+
+    def process(self, filename, src_dir, handler_meta):
+        output_name = filename.replace(self.EXT_CPP, self.EXT_HTML).lower()
+        dest_dir = handler_meta.convertToDest(src_dir)
+        src_path = join(src_dir, filename)
+        dest_path = join(dest_dir, output_name)
+
+        code = []
+        meta = []
+        state = self.STATE_NONE
+
+        # TODO(richard-to): Maybe use state pattern here later on
+        with open(src_path, 'r') as f:
+            for line in f:
+                if line.rstrip() == self.DELIM_START_YAML:
+                    state = self.STATE_META
+                    meta.append(line)
+                elif line.rstrip() == self.DELIM_END_YAML:
+                    state = self.STATE_NONE
+                    meta.append(line)
+                elif line.rstrip() == self.DELIM_START_CODE:
+                    state = self.STATE_CODE
+                elif state == self.STATE_META:
+                    meta.append(line)
+                elif state == self.STATE_CODE:
+                    code.append(line)
+
+        meta = load(''.join(meta))
+
+        code = ''.join(code)
+        meta[self.META_CODE] = code.strip()
+
+        if self.META_CLASS_NAME not in meta:
+            meta[self.META_CLASS_NAME] = filename[:-len(self.EXT_CPP)]
+
+        if not exists(dest_dir):
+            makedirs(dest_dir)
+
+        for key in self.template_vars:
+            meta[key] = self.template_vars[key]
+
         with open(dest_path, 'w') as f:
             f.write(self.template.render(meta))
 
@@ -255,9 +336,25 @@ def main():
     skipdir_handler = SkipDirHandler('_')
     java_exercise_handler = JavaExerciseHandler(EXERCISES_DIR, env.get_template(exercises_tpl))
     copy_handler = CopyHandler(COPY_FILES)
-    java_example_handler = JavaExampleHandler(env.get_template(examples_tpl))
 
-    dirwalker = DirWalker([skipdir_handler, java_exercise_handler, copy_handler, java_example_handler])
+    java_example_handler = JavaExampleHandler(
+        env.get_template(examples_tpl), 
+        {
+            JavaExampleHandler.TPL_ENDPOINT: '/compile/java',
+            JavaExampleHandler.TPL_ACE_MODE: 'java',
+            JavaExampleHandler.TPL_FILE_TYPE: 'java',
+        }
+    )
+    cpp_example_handler = CPPExampleHandler(
+        env.get_template(examples_tpl),
+        {
+            CPPExampleHandler.TPL_ENDPOINT: '/compile/cpp',
+            CPPExampleHandler.TPL_ACE_MODE: 'c_cpp',
+            CPPExampleHandler.TPL_FILE_TYPE: 'cpp',        
+        }
+    )
+
+    dirwalker = DirWalker([skipdir_handler, java_exercise_handler, copy_handler, java_example_handler, cpp_example_handler])
     dirwalker.walk(handler_meta)
 
 

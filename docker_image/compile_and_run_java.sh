@@ -22,4 +22,12 @@ elif [ $TYPE = 2 ]; then
             /bin/echo "Program timed out. Execution time is limited to 20 seconds"
         fi
     fi
+elif [ $TYPE = 3 ]; then
+    /usr/bin/g++ code/$FILE.cpp
+    if [ $? -eq 0 ]; then
+        /usr/bin/timeout 10s ./a.out
+        if [ $? -eq 124 ]; then
+            /bin/echo "Program timed out. Execution time is limited to 10 seconds"
+        fi
+    fi    
 fi
