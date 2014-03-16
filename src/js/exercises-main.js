@@ -34,7 +34,8 @@ function init_editor(options) {
 
         var postData = {
             className: options.className,
-            code: editor.getValue()
+            code: editor.getValue(),
+            type: options.type
         };
 
         $.post(options.endpoint, postData, function(data) {
