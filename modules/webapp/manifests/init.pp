@@ -13,12 +13,6 @@ class webapp(
   # Install java
   class { 'java': }
 
-  # Install junit4
-  package { 'junit4':
-    ensure => installed,
-    require => Package['oracle-java7-installer'],
-  }
-
   # Install TestNG
   package { 'testng':
     ensure => installed,
