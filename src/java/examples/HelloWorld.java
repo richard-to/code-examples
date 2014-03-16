@@ -4,6 +4,8 @@ title: Hello World
 tags: string
 exercises:
     - |
+        <p>How would you make this program print "<strong>Hello World</strong>" one time instead of two?</p>
+    - |
         <p>Make the program print:</p>
         <p><strong>I, for one, welcome our new computer overlords</strong></p>
 
