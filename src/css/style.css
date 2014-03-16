@@ -2,13 +2,14 @@ body {
     background: #fafafa;
     color: #666;
     font-family: arial;
+    height: 100%;    
+    margin: 0;
     padding: 0;
-    height: 100%;
 }
 
 h1 {
-    color: #444;
-    font-size: 24px;
+    color: #222;
+    font-size: 20px;
 }
 
 div > h1:first-child {
@@ -48,25 +49,108 @@ div > h1:first-child {
     background: #47a447;
 }
 
-.sidebar {
+.nav-container {
+    background: #fafafa;
+    box-sizing: border-box;        
+    box-shadow: 0 0 2px #ccc;  
+    padding: 10px 40px 10px 40px;
+    width: 100%;    
+    z-index: 100;
+
+    position: fixed;    
+    top: 0;
+}
+
+.nav-button {
+    color: #222;
+    cursor: pointer;    
+    display: inline-block;
+    font-size: 13px;
+    font-weight: bold;
+    line-height: 30px;
+    margin-left: 20px;
+    padding: 0 10px;
+}
+
+.nav-selected,
+.nav-button:hover {
+    background: #ececec;
+    color: #222;
+}
+
+.search-container {
+    color: #222;    
+    display: inline-block;
+    font-size: 13px;    
+    line-height: 30px;    
+    margin-left: 20px;
+    padding: 0 10px;    
+}
+
+.search-input {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    color: #222;
+    font-size: 13px;   
+    margin: 4px 0 4px 3px;    
+    outline: none;    
+    padding: 2px 3px;
+    width: 300px;
+}
+
+.tt-dropdown-menu {
+    background: #fff;
+    border: 1px solid #ececec;
+    border-top: none;
+    box-shadow: 0px 2px 5px #ccc;       
+    line-height: 10px;
+    color: #222;  
+    margin: 0;
+    margin-left: 3px;
+    padding: 0;
+}
+
+.tt-suggestion {
+    background: #fff;
+    border-top: 1px solid #ececec;    
+    padding: 2px 3px;
+    line-height: 0px;  
+    margin: 0;
+    width: 300px;    
+}
+
+.tt-cursor {
     background: #f1f1f1;
-    color: #666;
-    box-sizing: border-box;
-    position:fixed;
+    cursor: pointer;
+}
+
+.sidebar {
+    background: #fafafa;  
+    box-sizing: border-box; 
+    box-shadow: 0 0px 5px #ccc;   
+    color: #222;
     height: 100%;
     overflow:hidden;
     padding: 0;
-    top:0;
+    transition: width 300ms ease-in;
+    width: 40px;    
+    z-index: 101;
+
+    position:fixed;                
     left: 0;
-    width: 40px;
-    z-index: 100;
-    transition: width 400ms ease-in;
+    top: 0;    
 }
 
+.sidebar.show,
 .sidebar:hover {
     overflow-y: auto;
-    width: 250px;
-    transition: width 400ms ease-in;
+    transition: width 300ms ease-in;
+    width: 250px;    
+}
+
+.sidebar-left.show,
+.sidebar-left:hover {
+    width: 325px;
 }
 
 .sidebar-left {
@@ -75,17 +159,18 @@ div > h1:first-child {
 }
 
 .sidebar h2 {
-    font-size: 18px;
-    background: #d2d2d2;
+    color: #aaa;
+    font-size: 13px;
+    font-weight: normal;
     margin: 0;
-    padding: 15px;
+    padding: 15px 15px 5px 15px;
+    text-transform: uppercase;
 }
 
 .sidebar h3 {
-    font-size: 16px;
-    background: #dfdfdf;
+    font-size: 13px;
     margin: 0;
-    padding: 15px;
+    padding: 15px 15px 0 15px;
 }
 
 .sidebar ul {
@@ -93,50 +178,76 @@ div > h1:first-child {
     list-style: none;
     margin: 0;
     padding: 0;
-
 }
 
-.sidebar a {
-    display: inline-block;
-    color: #1073a9;
-    font-weight: bold;
-    text-decoration: none;
-    width: 100%;
-    padding: 10px;
-}
-
-.sidebar a:hover {
-    background: #f8f8f8;
-}
-
-.sidebar li {
-    margin: 0;
+.sidebar ol {
+    color: #000;
+    font-size: 13px;
+    list-style: decimal;
+    margin: 0 0 0 35px;
     padding: 0;
 }
 
+.sidebar ol li {
+    margin: 20px 0;
+    padding: 0;
+}
+
+
+.sidebar  a {
+    display: inline-block;
+    color: #222;
+    padding: 10px 15px;    
+    text-decoration: none;
+    width: 100%;    
+}
+
+.menu-items a {
+    font-weight: bold;
+}
+
+.sidebar a:hover {
+    background: #ececec;
+}
+
 .sidebar p {
+    font-size: 14px;
+    margin: 4px 0;
     padding: 0 15px;
 }
 
-.sidebar h3,
-.sidebar h2,
-.sidebar ul,
-.sidebar p {
+.sidebar li p {
+    padding: 0;
+}
+
+.sidebar .sidebar-wrap {
     width: 250px;
     display: none;
 }
 
-.sidebar:hover h2,
-.sidebar:hover h3,
-.sidebar:hover ul,
-.sidebar:hover p {
-    display: block;
+.sidebar-left .sidebar-wrap {
+    width: 325px;
+}
+
+.sidebar.show .sidebar-wrap,
+.sidebar:hover .sidebar-wrap {
+    display: block;  
 }
 
 .sidebar .arrow-wrap {
-    padding: 15px;
+    box-sizing: border-box;       
+    display: block;    
+    padding: 15px 0;
+    text-align: center;
+    width: 40px;
 }
 
+.sidebar .arrow-wrap .fa {
+    display: inline-block;
+    width: auto;
+}
+
+.sidebar.show .arrow-wrap,
 .sidebar:hover .arrow-wrap {
     display: none;
 }
@@ -146,8 +257,9 @@ div > h1:first-child {
     margin-left: 2%;
     position: relative;
     overflow: hidden;
-    padding: 5px 40px;
+    padding: 30px 40px;
     width: 96%;
+    margin-top: 40px;
 }
 
 .file-bar {
@@ -155,7 +267,7 @@ div > h1:first-child {
     border: none;
     box-sizing: border-box;
     color: #ebebeb;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1;
     width: 100%;
 }
@@ -168,16 +280,16 @@ div > h1:first-child {
 
 #editor {
     height: 500px;
-    width: 100%;
+    margin-top: 0;    
     padding-top:10px;
-    margin-top: 0;
+    width: 100%;    
 }
 
 #output {
     border: 1px solid #1a2c3d;
-    color: #fafafa;
     background: #2b3e50;
     box-sizing: border-box;
+    color: #fafafa;    
     padding: 15px;
     width: 100%;
 }

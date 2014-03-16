@@ -1,7 +1,7 @@
 /*
 ---
 title: Hello World
-
+tags: string
 exercises:
     - |
         <p>Make the program print:</p>
