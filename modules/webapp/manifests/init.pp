@@ -35,6 +35,10 @@ class webapp(
     name => 'fabric',
   }
 
+  python_pip::install { 'install_yaml':
+    name => 'pyyaml',
+  }
+
   python_pip::install { 'install_uwsgi':
     name => 'uwsgi',
   }
