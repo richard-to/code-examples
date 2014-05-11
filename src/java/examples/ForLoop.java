@@ -1,24 +1,24 @@
 /*
 ---
-title: For Loop Basic Syntax
+title: For Loop - Basic Syntax
 tags: loops
 exercises:
     - |
-        <p>How many times is "<strong>Hello, World</strong>" printed to the console?</p>
+        <p>How many times is "<strong>Hello World</strong>" printed to the console?</p>
     - |
-        <p>Make the program print "<strong>Hello, World</strong>" 5 times</p>
+        <p>Make the program print "<strong>Hello World</strong>" 5 times</p>
 
 output: |
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
+    Hello World
+    Hello World
+    Hello World
+    Hello World
+    Hello World
+    Hello World
+    Hello World
+    Hello World
+    Hello World
+    Hello World
 ...
 */
 
@@ -28,7 +28,7 @@ public class ForLoop
     {
         for (int i = 0; i < 10; i++) 
         {
-            System.out.println("Hello, World");
+            System.out.println("Hello World");
         }
     }
 }

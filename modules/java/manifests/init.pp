@@ -2,7 +2,7 @@ class java {
 
   Package { ensure => installed }
 
-  $deps = ['git-core']
+  $deps = ['git-core', 'software-properties-common', 'python-software-properties']
   package { $deps:
     ensure => installed,
   }

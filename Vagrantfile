@@ -18,7 +18,8 @@ Vagrant.configure("2") do |config|
   config.vm.provision "docker",
       images: ["dockerfile/java"]
 
-  config.vm.provision "shell", inline: "docker build -rm -t rto/java /vagrant/docker_image;"
+  config.vm.provision "shell", inline: "apt-get install apparmor;"
+  config.vm.provision "shell", inline: "docker build --rm -t codebot /vagrant/docker_image;"
 
   config.vm.provision "puppet" do |puppet|
     puppet.facter = {
