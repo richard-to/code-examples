@@ -48,7 +48,7 @@ def compile_java():
     volume = ':'.join([directory, app.config['DOCKER_VOLUME']])
 
     proc = subprocess.Popen(
-        ["docker", "run", "-n=false", "-rm", "-m", "64m", "-v", volume, "rto/java", TYPE_EXAMPLE, className],
+        ["docker", "run", "--rm", "-m", "64m", "-v", volume, "codebot", TYPE_EXAMPLE, className],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     stdout, stderr = proc.communicate()
@@ -102,7 +102,7 @@ def compile_java_exercise():
     volume = ':'.join([directory, app.config['DOCKER_VOLUME']])
 
     proc = subprocess.Popen(
-        ["docker", "run", "-n=false", "-rm", "-m", "64m", "-v", volume, "rto/java", TYPE_EXERCISE, className],
+        ["docker", "run", "--rm", "-m", "64m", "-v", volume, "codebot", TYPE_EXERCISE, className],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     stdout, stderr = proc.communicate()
@@ -149,7 +149,7 @@ def compile_cpp():
     volume = ':'.join([directory, app.config['DOCKER_VOLUME']])
 
     proc = subprocess.Popen(
-        ["docker", "run", "-n=false", "-rm", "-m", "64m", "-v", volume, "rto/java", TYPE_CPP, className],
+        ["docker", "run", "--rm", "-m", "64m", "-v", volume, "codebot", TYPE_CPP, className],
         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
 
     stdout, stderr = proc.communicate()

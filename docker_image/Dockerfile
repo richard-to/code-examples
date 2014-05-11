@@ -1,7 +1,6 @@
 from dockerfile/java
 
 RUN apt-get install -y g++
-RUN apt-get install -y junit4
 RUN apt-get install -y testng
 
 RUN addgroup --system codebot

@@ -67,6 +67,21 @@ class webapp(
     group  => 'root',
   }
 
+  service { 'docker':
+    ensure => running,
+    provider => upstart
+  }
+
+  # Create modified docker upstart config
+  file { "/etc/default/docker":
+    ensure => "file",
+    source => "${module_uri}/docker",
+    owner  => 'root',
+    group  => 'root',
+    notify  => Service['docker'],    
+  }
+
+
   # Create uwsgi upstart config
   file { "/etc/init/uwsgi.conf":
     ensure => "file",

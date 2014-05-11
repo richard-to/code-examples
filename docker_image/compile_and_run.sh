@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CLASSPATH=.:/usr/share/java/testng.jar:/usr/share/java/qdox.jar:/usr/share/java/bsh.jar
+CLASSPATH=.:/usr/share/java/testng.jar:/usr/share/java/qdox.jar:/usr/share/java/bsh.jar:/usr/share/java/jcommander.jar
 
 TYPE=$1
 FILE=$2
