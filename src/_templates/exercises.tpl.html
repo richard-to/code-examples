@@ -28,7 +28,7 @@
 
     <div id="main-container">
         <h1>{{title}}</h1>
-        <div class="file-bar"><div class="file-tab">{{class_name}}.java</div></div>
+        <div class="file-bar"><div class="file-tab">{{classname}}.java</div></div>
         <pre id="editor">{{code|e}}</pre>
 
         <p><button id="run-button" class="button success">Check your answer</button> <button id="reset-button" class="button">Reset</button></p>
@@ -75,7 +75,7 @@
 
         var options = {
             delay: 500,
-            className: '{{class_name}}',
+            classname: '{{classname}}',
             endpoint: '{{endpoint}}',
             mode: 'ace/mode/{{ace_mode}}',
             theme: 'ace/theme/xcode',

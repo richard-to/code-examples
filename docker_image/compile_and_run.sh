@@ -6,7 +6,7 @@ TYPE=$1
 FILE=$2
 TESTFILE=${2}Test
 
-if [ $TYPE = 1 ]; then
+if [ $TYPE = 'java-example' ]; then
     /usr/bin/javac -d . code/$FILE.java
     if [ $? -eq 0 ]; then
         /usr/bin/timeout 10s /usr/bin/java $FILE
@@ -14,7 +14,7 @@ if [ $TYPE = 1 ]; then
             /bin/echo "Program timed out. Execution time is limited to 10 seconds"
         fi
     fi
-elif [ $TYPE = 2 ]; then
+elif [ $TYPE = 'java-exercise' ]; then
     /usr/bin/javac -cp $CLASSPATH -d . code/$FILE.java code/$TESTFILE.java
     if [ $? -eq 0 ]; then
         /usr/bin/java -cp $CLASSPATH org.testng.TestNG -listener ReadableListener  -testname "$FILE Tests" -suitename "$FILE Test Suite" -usedefaultlisteners false -testclass $TESTFILE
@@ -22,7 +22,7 @@ elif [ $TYPE = 2 ]; then
             /bin/echo "Program timed out. Execution time is limited to 20 seconds"
         fi
     fi
-elif [ $TYPE = 3 ]; then
+elif [ $TYPE = 'cpp-example' ]; then
     /usr/bin/g++ code/$FILE.cpp
     if [ $? -eq 0 ]; then
         /usr/bin/timeout 10s ./a.out

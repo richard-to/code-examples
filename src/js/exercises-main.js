@@ -39,7 +39,7 @@ function init_editor(options) {
         runButtonEl.innerHTML = labels.compiling;
 
         var postData = {
-            className: options.className,
+            classname: options.classname,
             code: editor.getValue(),
             type: options.type
         };

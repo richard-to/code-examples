@@ -1,7 +1,7 @@
 /*
 ---
 title: Class Name Error
-class_name: HelloWorld
+classname: HelloWorld
 tags: compile error could not find or load main class
 exercises:
     - |

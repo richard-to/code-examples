@@ -42,11 +42,10 @@ function init_editor(options) {
         if (editor.getReadOnly()) {
             setTimeout(function() {
                 onCompile(masterOutputEl.innerHTML);
-
             }, options.delay);
         } else {
             var postData = {
-                className: options.className,
+                classname: options.classname,
                 code: editor.getValue()
             };
             $.post(options.endpoint, postData, function(data) {

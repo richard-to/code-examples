@@ -1,0 +1,10 @@
+DEBUG = True
+HOST = '127.0.0.1'
+PORT = 5000
+COMPILE_QUEUE_DIR = '/queue/'
+TEST_DIR = '/tests/'
+TEST_SUFFIX = 'Test'
+TEST_STUB_MARKER = '//INSERT_SNIPPET'
+DOCKER_VOLUME = '/home/codebot/code'
+DOCKER_CONTAINER = 'codebot'
+DOCKER_MEM = '64m'

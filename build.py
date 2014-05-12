@@ -26,7 +26,7 @@ class ParserKey(object):
 
 class MetaKey(object):
     CODE = 'code'
-    CLASS_NAME = 'class_name'
+    CLASSNAME = 'classname'
     TAGS = 'tags'    
     TITLE =  'title'
     TYPE = 'type'
@@ -39,7 +39,7 @@ class MetaKey(object):
 
 class TplKey(object):
     ACE_MODE = 'ace_mode'
-    CLASS_NAME = 'class_name'    
+    CLASSNAME = 'classname'    
     CODE = 'code'
     ENDPOINT = 'endpoint'
     FILE_TYPE = 'file_type'
@@ -168,7 +168,7 @@ class JavaExerciseHandler(object):
                     code.append(line)
 
         meta = load(''.join(meta))
-        meta[MetaKey.CLASS_NAME] = filename[:-len(ExtKey.JAVA)]
+        meta[MetaKey.CLASSNAME] = filename[:-len(ExtKey.JAVA)]
 
         code = ''.join(code)
 
@@ -240,8 +240,8 @@ class JavaExampleHandler(object):
         code = ''.join(code)
         meta[MetaKey.CODE] = code.strip()
 
-        if MetaKey.CLASS_NAME not in meta:
-            meta[MetaKey.CLASS_NAME] = filename[:-len(ExtKey.JAVA)]
+        if MetaKey.CLASSNAME not in meta:
+            meta[MetaKey.CLASSNAME] = filename[:-len(ExtKey.JAVA)]
 
         if not exists(dest_dir):
             makedirs(dest_dir)
@@ -305,8 +305,8 @@ class CPPExampleHandler(object):
         code = ''.join(code)
         meta[MetaKey.CODE] = code.strip()
 
-        if MetaKey.CLASS_NAME not in meta:
-            meta[MetaKey.CLASS_NAME] = filename[:-len(ExtKey.CPP)]
+        if MetaKey.CLASSNAME not in meta:
+            meta[MetaKey.CLASSNAME] = filename[:-len(ExtKey.CPP)]
 
         if not exists(dest_dir):
             makedirs(dest_dir)
@@ -378,7 +378,7 @@ def main():
         BuildConfig.EXERCISES_DIR, 
         build_config.exercises_tpl,
         {
-            TplKey.ENDPOINT: '/compile/java/exercise',
+            TplKey.ENDPOINT: '/api/compile/java/exercise',
             TplKey.ACE_MODE: 'java',
             TplKey.FILE_TYPE: 'java',
             TplKey.MENU_INCLUDE: 'includes/java-exercises-sidebar.html'
@@ -390,7 +390,7 @@ def main():
     java_example_handler = JavaExampleHandler(
         build_config.examples_tpl, 
         {
-            TplKey.ENDPOINT: '/compile/java',
+            TplKey.ENDPOINT: '/api/compile/java',
             TplKey.ACE_MODE: 'java',
             TplKey.FILE_TYPE: 'java',
             TplKey.MENU_INCLUDE: 'includes/java-examples-sidebar.html',
@@ -401,7 +401,7 @@ def main():
     cpp_example_handler = CPPExampleHandler(
         build_config.examples_tpl,
         {
-            TplKey.ENDPOINT: '/compile/cpp',
+            TplKey.ENDPOINT: '/api/compile/cpp',
             TplKey.ACE_MODE: 'c_cpp',
             TplKey.FILE_TYPE: 'cpp',
             TplKey.MENU_INCLUDE: 'includes/cpp-examples-sidebar.html',
