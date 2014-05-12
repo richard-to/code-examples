@@ -1,4 +1,10 @@
 function init_editor(options) {
+    window.addEventListener("keydown", function(e) { 
+        if (e.keyCod e=== 8) {
+            e.preventDefault();
+        } 
+    }, true);
+    
     var labels = {
         reset: "Reset",
         edit: "Make Editable",
