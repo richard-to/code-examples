@@ -4,11 +4,11 @@ title: Assigning String Variables
 tags: string variables assign
 exercises:
     - |
-        <p>Make the program print the following output using only the outputString variable:</p>
-        <br />
-        <p><strong>Hello Earth<br />
-        Hello World<br />
-        Hello Universe</strong></p>
+        Make the program print the following output using only the outputString variable:
+        
+        **Hello Earth
+        Hello World
+        Hello Universe**
 output: |
     Hello Earth
     Hello World

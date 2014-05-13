@@ -1,7 +1,7 @@
 /*
 ---
 title: Palindrome
-instructions: <p>Implement a method to detect palindromes.</p>
+instructions: Implement a method to detect palindromes.
 ...
 */
 

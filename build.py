@@ -4,6 +4,8 @@ import json
 from os import listdir, makedirs
 from os.path import isfile, isdir, join, basename, exists, splitext, getmtime
 
+import markdown
+
 from jinja2 import Environment, PackageLoader
 from yaml import load, dump
 
@@ -18,22 +20,21 @@ class ParserKey(object):
     STATE_NONE = 0
     STATE_META = 1
     STATE_CODE = 2
-
     DELIM_START_YAML = '---'
     DELIM_END_YAML = '...'
     DELIM_START_CODE = '*/'
 
 
 class MetaKey(object):
+    CLASSNAME = 'classname'    
     CODE = 'code'
-    CLASSNAME = 'classname'
+    EXERCISES = 'exercises'
+    INSTRUCTIONS = 'instructions'    
     TAGS = 'tags'    
     TITLE =  'title'
     TYPE = 'type'
-
     TYPE_DEFAULT = 'default'
     TYPE_STUB = 'stub'
-
     URL = 'url'
 
 
@@ -172,6 +173,8 @@ class JavaExerciseHandler(object):
 
         code = ''.join(code)
 
+        meta[MetaKey.INSTRUCTIONS] = markdown.markdown(meta[MetaKey.INSTRUCTIONS])
+
         if MetaKey.TYPE not in meta:
             meta[MetaKey.TYPE] = MetaKey.TYPE_DEFAULT
 
@@ -240,6 +243,8 @@ class JavaExampleHandler(object):
         code = ''.join(code)
         meta[MetaKey.CODE] = code.strip()
 
+        meta[MetaKey.EXERCISES] = [markdown.markdown(ex) for ex in meta[MetaKey.EXERCISES]]
+
         if MetaKey.CLASSNAME not in meta:
             meta[MetaKey.CLASSNAME] = filename[:-len(ExtKey.JAVA)]
 
@@ -304,6 +309,8 @@ class CPPExampleHandler(object):
 
         code = ''.join(code)
         meta[MetaKey.CODE] = code.strip()
+
+        meta[MetaKey.EXERCISES] = [markdown.markdown(ex) for ex in meta[MetaKey.EXERCISES]]
 
         if MetaKey.CLASSNAME not in meta:
             meta[MetaKey.CLASSNAME] = filename[:-len(ExtKey.CPP)]

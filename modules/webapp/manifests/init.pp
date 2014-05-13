@@ -29,6 +29,10 @@ class webapp(
     name => 'fabric',
   }
 
+  python_pip::install { 'install_markdown':
+    name => 'markdown',
+  }
+
   python_pip::install { 'install_yaml':
     name => 'pyyaml',
   }

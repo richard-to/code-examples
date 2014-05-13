@@ -5,9 +5,9 @@ classname: HelloWorld
 tags: compile error could not find or load main class
 exercises:
     - |
-        <p>Why does this program not compile correctly?</p>
+        Why does this program not compile correctly?
     - |
-        <p>Make the program print "<strong>Hello World</strong>"</p>
+        Make the program print **Hello World**.
 
 output: |
     Error: Could not find or load main class HelloWorld

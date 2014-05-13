@@ -4,9 +4,9 @@ title: For Loop - Basic Syntax
 tags: loops
 exercises:
     - |
-        <p>How many times is "<strong>Hello World</strong>" printed to the console?</p>
+        How many times is **Hello World** printed to the console?
     - |
-        <p>Make the program print "<strong>Hello World</strong>" 5 times</p>
+        Make the program print **Hello World** 5 times.
 
 output: |
     Hello World

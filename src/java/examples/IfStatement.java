@@ -4,7 +4,7 @@ title: If Statement - Basic Syntax
 tags: if statement
 exercises:
     - |
-        <p>Make the program print "<strong>Hello World</strong>" once instead of twice.</p>
+        Make the program print **Hello World** once instead of twice.
 
 output: |
     Hello World

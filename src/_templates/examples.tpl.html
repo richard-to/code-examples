@@ -84,7 +84,7 @@
 
         var searchEngine = new Bloodhound({
             datumTokenizer: function(datum) { 
-                var keywords = d.title + " " + d.tags;
+                var keywords = datum.title + " " + datum.tags;
                 return Bloodhound.tokenizers.obj.whitespace(keywords); 
             },            
             queryTokenizer: Bloodhound.tokenizers.whitespace,

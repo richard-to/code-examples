@@ -2,11 +2,9 @@
 ---
 title: Variables 2
 instructions: |
-        <ol>
-            <li>Create a variable of type <strong>int</strong> named <strong>number1</strong> with a value greater than 100.</li>
-            <li>Create a variable of type <strong>int</strong> named <strong>number2</strong> with a value greater than 100.</li>
-            <li>Multiply <strong>number1</strong> by <strong>number2</strong> and store the result in a variable named <strong>product</strong>.</li>
-        </ul>
+        1. Create a variable of type **int** named **number1** with a value greater than 100.
+        2. Create a variable of type **int** named **number2** with a value greater than 100.
+        3. Multiply **number1** by **number2** and store the result in a variable named **product**.
 type: stub
 ...
 */

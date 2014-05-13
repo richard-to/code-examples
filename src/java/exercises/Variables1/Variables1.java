@@ -1,7 +1,7 @@
 /*
 ---
 title: Variables 1
-instructions: <p>Create a <strong>String</strong> variable named <strong>greeting</strong> and set it equal to "<strong>Hello</strong>".</p>
+instructions: Create a **String** variable named **greeting** and set it equal to **Hello**.
 type: stub
 ...
 */

@@ -3,9 +3,9 @@
 title: If Statement - Syntax/Logic Error
 exercises:
     - |
-        <p>Why does this program output "<strong>Hello World!</strong>" twice?</p>
+        Why does this program output **Hello World!** twice?
     - |
-        <p>Make the program print "<strong>Hello World</strong>" once instead of twice.</p>
+        Make the program print **Hello World** once instead of twice.
 
 output: |
     Hello World

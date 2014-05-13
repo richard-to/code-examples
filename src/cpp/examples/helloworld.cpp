@@ -4,8 +4,9 @@ title: Hello World
 tags: string
 exercises:
     - |
-        <p>Make the program print:</p>
-        <p><strong>I, for one, welcome our new computer overlords</strong></p>
+        Make the program print:
+        
+        **I, for one, welcome our new computer overlords**
 
 output: |
     Hello World!
