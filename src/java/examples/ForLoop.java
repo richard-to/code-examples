@@ -2,12 +2,9 @@
 ---
 title: For Loop - Basic Syntax
 tags: loops
-exercises:
-    - |
-        How many times is **Hello World** printed to the console?
-    - |
-        Make the program print **Hello World** 5 times.
-
+exercises: |
+    1. How many times is **Hello World** printed to the console?
+    2. Make the program print **Hello World** 5 times.
 output: |
     Hello World
     Hello World

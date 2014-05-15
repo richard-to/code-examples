@@ -2,13 +2,10 @@
 ---
 title: Hello World
 tags: string
-exercises:
-    - |
-        Make this program print **Hello World** one time instead of two.
-    - |
-        Make the program print:
-
-        **I, for one, welcome our new computer overlords**
+exercises: |
+    1. Make this program print **Hello World** one time instead of two.
+    2. Make the program print:<br /><br />
+    **I, for one, welcome our new computer overlords**
 
 output: |
     Hello World

@@ -2,11 +2,9 @@
 ---
 title: String Variables
 tags: string variables
-exercises:
-    - |
-        Create a variable with a value of **Hello Universe** and print the variable.
-    - |
-        Print the value **Hello Universe** without using a variable.
+exercises: |
+    1. Create and print a variable with a value of **Hello Universe**.
+    2. Print the value **Hello Universe** as a literal.
 output: |
     Hello Earth
     Hello World        

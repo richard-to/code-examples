@@ -1,14 +1,10 @@
 /*
 ---
 title: Int Variables
-exercises:
-    - |
-        Create an int named **yourInteger** and assign value it.
-    - |
-        What happens if you delete the line **myInteger = 0;**?
-    - |
-        What happens if you change the value of **anInteger** to **10.5** or **55.2**?
-
+exercises: |
+    1. Create an int named **yourInteger** and assign a value it.
+    2. Why do you get an error if you delete line 6?
+    3. What happens if you change the value of **anInteger** to **10.5** or **55.2**?
 output: |
     0
     10

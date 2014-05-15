@@ -2,13 +2,12 @@
 ---
 title: Assigning String Variables
 tags: string variables assign
-exercises:
-    - |
-        Make the program print the following output using only the outputString variable:
-        
-        **Hello Earth
-        Hello World
-        Hello Universe**
+exercises: |
+    1. Make the program print the following output using only the outputString variable:
+      <br />   
+      **Hello Earth<br />
+      Hello World<br />
+      Hello Universe**
 output: |
     Hello Earth
     Hello World

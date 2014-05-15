@@ -2,10 +2,8 @@
 ---
 title: Hello World
 tags: string
-exercises:
-    - |
-        Make the program print:
-        
+exercises: |
+    1. Make the program print:<br /><br />
         **I, for one, welcome our new computer overlords**
 
 output: |

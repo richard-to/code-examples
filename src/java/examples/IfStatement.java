@@ -2,10 +2,8 @@
 ---
 title: If Statement - Basic Syntax
 tags: if statement
-exercises:
-    - |
-        Make the program print **Hello World** once instead of twice.
-
+exercises: |
+    1. Make the program print **Hello World** once instead of twice.
 output: |
     Hello World
     Hello World

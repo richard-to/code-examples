@@ -46,6 +46,33 @@ class TplKey(object):
     FILE_TYPE = 'file_type'
     MENU_INCLUDE = 'menu_include'
     SEARCH_DATA_URL = 'search_data_url'
+    JS_EDITOR = 'js_editor'
+    RUN_LABEL = 'run_label'
+    RESET_LABEL = 'reset_label'
+    INFO_LABEL = 'info_label'
+
+
+def parseCodeFile(src_path):
+    code = []
+    meta = []        
+    state = ParserKey.STATE_NONE        
+    with open(src_path, 'r') as f:
+        for line in f:
+            if line.rstrip() == ParserKey.DELIM_START_YAML:
+                state = ParserKey.STATE_META
+                meta.append(line)
+            elif line.rstrip() == ParserKey.DELIM_END_YAML:
+                state = ParserKey.STATE_NONE
+                meta.append(line)
+            elif line.rstrip() == ParserKey.DELIM_START_CODE:
+                state = ParserKey.STATE_CODE
+            elif state == ParserKey.STATE_META:
+                meta.append(line)
+            elif state == ParserKey.STATE_CODE:
+                code.append(line)
+
+    meta = load(''.join(meta))
+    return [code, meta]
 
 
 class HandlerMeta(object):
@@ -148,31 +175,10 @@ class JavaExerciseHandler(object):
         testfile = ''.join([handle, self.TESTFILE_SUFFIX, ExtKey.JAVA])
         test_dir = handler_meta.getTestDir()
 
-        code = []
-        meta = []
-        state = ParserKey.STATE_NONE
-
-        # TODO(richard-to): Maybe use state pattern here later on
-        with open(src_path, 'r') as f:
-            for line in f:
-                if line.rstrip() == ParserKey.DELIM_START_YAML:
-                    state = ParserKey.STATE_META
-                    meta.append(line)
-                elif line.rstrip() == ParserKey.DELIM_END_YAML:
-                    state = ParserKey.STATE_NONE
-                    meta.append(line)
-                elif line.rstrip() == ParserKey.DELIM_START_CODE:
-                    state = ParserKey.STATE_CODE
-                elif state == ParserKey.STATE_META:
-                    meta.append(line)
-                elif state == ParserKey.STATE_CODE:
-                    code.append(line)
-
-        meta = load(''.join(meta))
-        meta[MetaKey.CLASSNAME] = filename[:-len(ExtKey.JAVA)]
-
+        code, meta = parseCodeFile(src_path)
         code = ''.join(code)
 
+        meta[MetaKey.CLASSNAME] = filename[:-len(ExtKey.JAVA)]
         meta[MetaKey.INSTRUCTIONS] = markdown.markdown(meta[MetaKey.INSTRUCTIONS])
 
         if MetaKey.TYPE not in meta:
@@ -218,32 +224,10 @@ class JavaExampleHandler(object):
         dest_path = join(dest_dir, output_name)
         dest_url_path = join(dest_url, output_name)
 
-        code = []
-        meta = []
-        state = ParserKey.STATE_NONE
-
-        # TODO(richard-to): Maybe use state pattern here later on
-        with open(src_path, 'r') as f:
-            for line in f:
-                if line.rstrip() == ParserKey.DELIM_START_YAML:
-                    state = ParserKey.STATE_META
-                    meta.append(line)
-                elif line.rstrip() == ParserKey.DELIM_END_YAML:
-                    state = ParserKey.STATE_NONE
-                    meta.append(line)
-                elif line.rstrip() == ParserKey.DELIM_START_CODE:
-                    state = ParserKey.STATE_CODE
-                elif state == ParserKey.STATE_META:
-                    meta.append(line)
-                elif state == ParserKey.STATE_CODE:
-                    code.append(line)
-
-        meta = load(''.join(meta))
-
+        code, meta = parseCodeFile(src_path)
         code = ''.join(code)
         meta[MetaKey.CODE] = code.strip()
-
-        meta[MetaKey.EXERCISES] = [markdown.markdown(ex) for ex in meta[MetaKey.EXERCISES]]
+        meta[MetaKey.EXERCISES] = markdown.markdown(meta[MetaKey.EXERCISES])
 
         if MetaKey.CLASSNAME not in meta:
             meta[MetaKey.CLASSNAME] = filename[:-len(ExtKey.JAVA)]
@@ -285,32 +269,10 @@ class CPPExampleHandler(object):
         dest_path = join(dest_dir, output_name)
         dest_url_path = join(dest_url, output_name)
 
-        code = []
-        meta = []
-        state = ParserKey.STATE_NONE
-
-        # TODO(richard-to): Maybe use state pattern here later on
-        with open(src_path, 'r') as f:
-            for line in f:
-                if line.rstrip() == ParserKey.DELIM_START_YAML:
-                    state = ParserKey.STATE_META
-                    meta.append(line)
-                elif line.rstrip() == ParserKey.DELIM_END_YAML:
-                    state = ParserKey.STATE_NONE
-                    meta.append(line)
-                elif line.rstrip() == ParserKey.DELIM_START_CODE:
-                    state = ParserKey.STATE_CODE
-                elif state == ParserKey.STATE_META:
-                    meta.append(line)
-                elif state == ParserKey.STATE_CODE:
-                    code.append(line)
-
-        meta = load(''.join(meta))
-
+        code, meta = parseCodeFile(src_path)
         code = ''.join(code)
         meta[MetaKey.CODE] = code.strip()
-
-        meta[MetaKey.EXERCISES] = [markdown.markdown(ex) for ex in meta[MetaKey.EXERCISES]]
+        meta[MetaKey.EXERCISES] = markdown.markdown(meta[MetaKey.EXERCISES])
 
         if MetaKey.CLASSNAME not in meta:
             meta[MetaKey.CLASSNAME] = filename[:-len(ExtKey.CPP)]
@@ -356,8 +318,8 @@ class BuildConfig(object):
 
     TEMPLATES_DIR = 'src/_templates'    
 
-    EXAMPLES_TPL_NAME = 'examples.tpl.html'
-    EXERCISES_TPL_NAME = 'exercises.tpl.html'
+    EXAMPLES_TPL_NAME = 'examples.html'
+    EXERCISES_TPL_NAME = 'exercises.html'
 
     def __init__(self, pkg_name):
         self.env = Environment(loader=PackageLoader(pkg_name, self.TEMPLATES_DIR))
@@ -372,6 +334,7 @@ class BuildConfig(object):
 
     def get_data_path_for(self, file):
         return join(self.SITE_DIR, self.DATA_DIR, file)
+
 
 def main():
 
@@ -388,7 +351,11 @@ def main():
             TplKey.ENDPOINT: '/api/compile/java/exercise',
             TplKey.ACE_MODE: 'java',
             TplKey.FILE_TYPE: 'java',
-            TplKey.MENU_INCLUDE: 'includes/java-exercises-sidebar.html'
+            TplKey.MENU_INCLUDE: 'includes/java-exercises-sidebar.html',
+            TplKey.RUN_LABEL: 'Check your answer',
+            TplKey.RESET_LABEL: 'Reset',            
+            TplKey.INFO_LABEL: 'Objectives',
+            TplKey.JS_EDITOR: '/js/exercises-editor.js'
         }
     )
     
@@ -401,7 +368,11 @@ def main():
             TplKey.ACE_MODE: 'java',
             TplKey.FILE_TYPE: 'java',
             TplKey.MENU_INCLUDE: 'includes/java-examples-sidebar.html',
-            TplKey.SEARCH_DATA_URL: '/data/java-examples.json'            
+            TplKey.SEARCH_DATA_URL: '/data/java-examples.json',
+            TplKey.RUN_LABEL: 'Run',
+            TplKey.RESET_LABEL: 'Make Editable',            
+            TplKey.INFO_LABEL: 'Self Test',
+            TplKey.JS_EDITOR: '/js/examples-editor.js'
         }
     )
 
@@ -412,11 +383,22 @@ def main():
             TplKey.ACE_MODE: 'c_cpp',
             TplKey.FILE_TYPE: 'cpp',
             TplKey.MENU_INCLUDE: 'includes/cpp-examples-sidebar.html',
-            TplKey.SEARCH_DATA_URL: '/data/cpp-examples.json'
+            TplKey.SEARCH_DATA_URL: '/data/cpp-examples.json',
+            TplKey.RUN_LABEL: 'Run',
+            TplKey.RESET_LABEL: 'Make Editable',
+            TplKey.INFO_LABEL: 'Self Test',
+            TplKey.JS_EDITOR: '/js/examples-editor.js'            
         }
     )
 
-    dirwalker = DirWalker([skipdir_handler, java_exercise_handler, copy_handler, java_example_handler, cpp_example_handler])
+
+    dirwalker = DirWalker([
+        skipdir_handler, 
+        java_exercise_handler, 
+        copy_handler, 
+        java_example_handler, 
+        cpp_example_handler
+    ])
     dirwalker.walk(handler_meta)
 
 
