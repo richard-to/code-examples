@@ -10,6 +10,8 @@ from jinja2 import Environment, PackageLoader
 from yaml import load, dump
 
 
+# Define some constants
+
 class ExtKey(object):
     CPP = '.cpp'
     HTML = '.html'    
@@ -53,6 +55,16 @@ class TplKey(object):
 
 
 def parseCodeFile(src_path):
+    """Simple lexer to parse code files and separate metadata.
+
+    Metadata will be returned as a dict containing all parameters
+    found in source code.
+
+    Args:
+        src_path: Full path of file to read and parse.
+    Returns:
+        A list with source code and metadata areas separated.
+    """
     code = []
     meta = []        
     state = ParserKey.STATE_NONE        
@@ -76,6 +88,8 @@ def parseCodeFile(src_path):
 
 
 class HandlerMeta(object):
+    """Helper methods to translate filepath from source to destination."""
+
     def __init__(self, src_basedir, dest_basedir, test_basedir):
         self.src_basedir = src_basedir
         self.dest_basedir = dest_basedir
@@ -92,6 +106,11 @@ class HandlerMeta(object):
 
 
 class DirWalker(object):
+    """Recursively walk through directory and process files/dirs.
+
+    Files/dirs are processed using Handler classes.
+    """
+
     def __init__(self, handlers):
         self.handlers = handlers
 
@@ -112,6 +131,12 @@ class DirWalker(object):
 
 
 class SkipDirHandler(object):
+    """Ignores directories with specified prefix.
+
+    Currently only one prefix can be used, which is 
+    good enough for now.
+    """
+
     def __init__(self, prefix):
         self.prefix = prefix
 
@@ -125,6 +150,8 @@ class SkipDirHandler(object):
 
 
 class CopyHandler(object):
+    """Copies files in whitelist to output directory"""
+
     def __init__(self, filetypes=[]):
         self.filetypes = filetypes
 
@@ -134,7 +161,7 @@ class CopyHandler(object):
             filename, ext = splitext(handle)
         return ext in self.filetypes
 
-    def process(self, filename, src_dir, handler_meta):
+    def process(self, filename, src_dir, handler_meta):     
         dest_dir = handler_meta.convertToDest(src_dir)
         src_path = join(src_dir, filename)
         dest_path = join(dest_dir, filename)
@@ -151,19 +178,38 @@ class CopyHandler(object):
 
 
 class JavaExerciseHandler(object):
-    TESTFILE_SUFFIX = 'Test'
+    """Parses Java example files and create HTML page.
 
-    def __init__(self, exercise_folder, template, template_vars):
+    Attributes:
+        cache: Metadata extracted from Java files.
+    """    
+    def __init__(self, exercise_folder, template, template_vars, test_file_suffix):
         self.exercise_folder = exercise_folder
         self.template = template
         self.template_vars = template_vars
+        self.test_file_suffix = test_file_suffix
         self.cache = []
 
     def compatible(self, handle, handle_path):
+        """Checks if handle is a Java exercise folder
+
+        Args:
+            handle: Name of the file/directory
+            handle_path: File path
+
+        Returns:
+            Whether folder contains Java exercise files
+        """         
         return isdir(handle_path) and handle_path.endswith(join(self.exercise_folder, handle))
 
     def process(self, handle, src_dir, handler_meta):
+        """Extracts metadata from Java exercise files and creates HTML file
 
+        Args:
+            filename: Name of file
+            src_dir: Directory of source file
+            handler_meta: Instance of HandlerMeta class
+        """
         filename = ''.join([handle, ExtKey.JAVA])
         output_name = ''.join([handle.lower(), ExtKey.HTML])
         dest_dir = handler_meta.convertToDest(src_dir)
@@ -172,7 +218,7 @@ class JavaExerciseHandler(object):
         dest_path = join(dest_dir, output_name)
         dest_url_path = join(dest_url, output_name)
 
-        testfile = ''.join([handle, self.TESTFILE_SUFFIX, ExtKey.JAVA])
+        testfile = ''.join([handle, self.test_file_suffix, ExtKey.JAVA])
         test_dir = handler_meta.getTestDir()
 
         code, meta = parseCodeFile(src_path)
@@ -205,18 +251,40 @@ class JavaExerciseHandler(object):
 
 
 class JavaExampleHandler(object):
+    """Parses Java example files and create HTML page.
+
+    Attributes:
+        cache: Metadata extracted from Java files.
+    """
+
     def __init__(self, template, template_vars):
         self.template = template
         self.template_vars = template_vars
         self.cache = []
 
     def compatible(self, handle, handle_path):
+        """Checks for Java file by extension
+
+        Args:
+            handle: Name of the file/directory
+            handle_path: File path
+
+        Returns:
+            Whether file is Java or not
+        """                    
         ext = None
         if isfile(handle_path):
             filename, ext = splitext(handle)
         return ext == ExtKey.JAVA
 
     def process(self, filename, src_dir, handler_meta):
+        """Extracts metadata from Java example file and creates HTML file
+
+        Args:
+            filename: Name of file
+            src_dir: Directory of source file
+            handler_meta: Instance of HandlerMeta class
+        """          
         output_name = filename.replace(ExtKey.JAVA, ExtKey.HTML).lower()
         dest_dir = handler_meta.convertToDest(src_dir)
         dest_url = handler_meta.convertToDestUrl(src_dir)
@@ -250,18 +318,40 @@ class JavaExampleHandler(object):
 
 
 class CPPExampleHandler(object):
+    """Parses C++ files and create HTML page.
+
+    Attributes:
+        cache: Metadata extracted from C++ files.
+    """
+
     def __init__(self, template, template_vars):
         self.template = template
         self.template_vars = template_vars
         self.cache = []        
 
     def compatible(self, handle, handle_path):
+        """Checks for C++ file by extension
+
+        Args:
+            handle: Name of the file/directory
+            handle_path: File path
+
+        Returns:
+            Whether file is C++ or not
+        """
         ext = None
         if isfile(handle_path):
             filename, ext = splitext(handle)
         return ext == ExtKey.CPP
 
     def process(self, filename, src_dir, handler_meta):
+        """Extracts metadata from C++ file and create HTML file
+
+        Args:
+            filename: Name of file
+            src_dir: Directory of source file
+            handler_meta: Instance of HandlerMeta class
+        """        
         output_name = filename.replace(ExtKey.CPP, ExtKey.HTML).lower()
         dest_dir = handler_meta.convertToDest(src_dir)
         dest_url = handler_meta.convertToDestUrl(src_dir)
@@ -295,7 +385,15 @@ class CPPExampleHandler(object):
 
 
 class SearchDataWriterJSON(object):
+    """Writes search index in JSON format.
+
+    Uses metadata extracted by the handler classes to
+    create the search index. Currently used with 
+    Twitter typeahead library.
+    """
+
     def write(self, data, dest_dir, file):
+        """Writes data in JSON format."""
         if not exists(dest_dir):
             makedirs(dest_dir)
 
@@ -304,118 +402,61 @@ class SearchDataWriterJSON(object):
             f.write(json.dumps(data))        
 
 
-class BuildConfig(object):
-    SRC_DIR = 'src'
-    SITE_DIR = 'site'
-    TEST_DIR = 'api_server/instance/tests'
-
-    COPY_FILES = ['.js', '.css', '.png', '.gif']
-    IGNORE_DIRS = '_'
-
-    DATA_DIR = 'data'
-
-    EXERCISES_DIR = 'exercises'
-
-    TEMPLATES_DIR = 'src/_templates'    
-
-    EXAMPLES_TPL_NAME = 'examples.html'
-    EXERCISES_TPL_NAME = 'exercises.html'
-
-    def __init__(self, pkg_name):
-        self.env = Environment(loader=PackageLoader(pkg_name, self.TEMPLATES_DIR))
-        self.examples_tpl = self.env.get_template(self.EXAMPLES_TPL_NAME)
-        self.exercises_tpl = self.env.get_template(self.EXERCISES_TPL_NAME)
-
-    def get_tpl_path_for(self, path):
-        return ''.join([self.TEMPLATES_DIR, path])
-
-    def get_data_path(self):
-        return join(self.SITE_DIR, self.DATA_DIR)
-
-    def get_data_path_for(self, file):
-        return join(self.SITE_DIR, self.DATA_DIR, file)
-
-
+# Typical build setup
 def main():
 
-    build_config = BuildConfig(__name__)
+    # Load Build Settings
+    settings = None
+    with open('build_settings.yaml', 'r') as f:
+        settings = load(f.read())
 
-    handler_meta = HandlerMeta(BuildConfig.SRC_DIR, BuildConfig.SITE_DIR, BuildConfig.TEST_DIR)
+    # Init Jinja2 Template Env
+    env = Environment(loader=PackageLoader(__name__, settings['templates-dir']))
+    examples_tpl = env.get_template(settings['examples-tpl'])
+    exercises_tpl = env.get_template(settings['exercises-tpl'])
 
-    skipdir_handler = SkipDirHandler(BuildConfig.IGNORE_DIRS)
+    # Init File/Dir Handlers
+    handler_meta = HandlerMeta(
+        settings['src-dir'], settings['site-dir'], settings['test-dir'])
+
+    skipdir_handler = SkipDirHandler(settings['ignore-dirs'])
 
     java_exercise_handler = JavaExerciseHandler(
-        BuildConfig.EXERCISES_DIR, 
-        build_config.exercises_tpl,
-        {
-            TplKey.ENDPOINT: '/api/compile/java/exercise',
-            TplKey.ACE_MODE: 'java',
-            TplKey.FILE_TYPE: 'java',
-            TplKey.MENU_INCLUDE: 'includes/java-exercises-sidebar.html',
-            TplKey.RUN_LABEL: 'Check your answer',
-            TplKey.RESET_LABEL: 'Reset',            
-            TplKey.INFO_LABEL: 'Objectives',
-            TplKey.JS_EDITOR: '/js/exercises-editor.js'
-        }
-    )
+        settings['exercises-dir'],
+        exercises_tpl,
+        settings['java-exercise-handler'],
+        settings['test-file-suffix'])
     
-    copy_handler = CopyHandler(BuildConfig.COPY_FILES)
+    copy_handler = CopyHandler(settings['copy-files'])
 
     java_example_handler = JavaExampleHandler(
-        build_config.examples_tpl, 
-        {
-            TplKey.ENDPOINT: '/api/compile/java',
-            TplKey.ACE_MODE: 'java',
-            TplKey.FILE_TYPE: 'java',
-            TplKey.MENU_INCLUDE: 'includes/java-examples-sidebar.html',
-            TplKey.SEARCH_DATA_URL: '/data/java-examples.json',
-            TplKey.RUN_LABEL: 'Run',
-            TplKey.RESET_LABEL: 'Make Editable',            
-            TplKey.INFO_LABEL: 'Self Test',
-            TplKey.JS_EDITOR: '/js/examples-editor.js'
-        }
-    )
+        examples_tpl,
+        settings['java-example-handler'])
 
     cpp_example_handler = CPPExampleHandler(
-        build_config.examples_tpl,
-        {
-            TplKey.ENDPOINT: '/api/compile/cpp',
-            TplKey.ACE_MODE: 'c_cpp',
-            TplKey.FILE_TYPE: 'cpp',
-            TplKey.MENU_INCLUDE: 'includes/cpp-examples-sidebar.html',
-            TplKey.SEARCH_DATA_URL: '/data/cpp-examples.json',
-            TplKey.RUN_LABEL: 'Run',
-            TplKey.RESET_LABEL: 'Make Editable',
-            TplKey.INFO_LABEL: 'Self Test',
-            TplKey.JS_EDITOR: '/js/examples-editor.js'            
-        }
-    )
+        examples_tpl,
+        settings['cpp-example-handler'])
 
-
+    # Handlers tell directory what to do
     dirwalker = DirWalker([
         skipdir_handler, 
         java_exercise_handler, 
         copy_handler, 
         java_example_handler, 
-        cpp_example_handler
-    ])
+        cpp_example_handler])
     dirwalker.walk(handler_meta)
 
-
+    # Writes file meta captured from handlers to build search index
     search_data_writer = SearchDataWriterJSON()
-
-
     search_data_writer.write(
         java_example_handler.cache, 
-        build_config.get_data_path(),
-        'java-examples.json'
-    )
-
+        join(settings['site-dir'], settings['data-dir']),
+        settings['java-example-search'])
     search_data_writer.write(
         cpp_example_handler.cache, 
-        build_config.get_data_path(),
-        'cpp-examples.json'
-    )
+        join(settings['site-dir'], settings['data-dir']),
+        settings['cpp-example-search'])
+
 
 if __name__ == '__main__':
     main()

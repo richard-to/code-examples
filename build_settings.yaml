@@ -1,0 +1,48 @@
+---
+src-dir: src
+site-dir: site
+test-dir: api_server/instance/tests
+data-dir: data
+exercises-dir: exercises
+templates-dir: src/_templates
+examples-tpl: examples.html
+exercises-tpl: exercises.html
+copy-files:
+    - .js
+    - .css
+    - .png
+    - .gif
+ignore-dirs: _
+test-file-suffix: Test
+java-example-search: java-examples.json
+cpp-example-search: cpp-examples.json
+java-example-handler:
+    endpoint: /api/compile/java
+    ace_mode: java
+    file_type: java
+    menu_include: includes/java-examples-sidebar.html
+    search_data_url: /data/java-examples.json
+    run_label: Run
+    reset_label: Make Editable
+    info_label: Self Test
+    js_editor: /js/examples-editor.js
+java-exercise-handler:
+    endpoint: /api/compile/java/exercise
+    ace_mode: java
+    file_type: java
+    menu_include: includes/java-exercises-sidebar.html
+    run_label: Check your answer
+    reset_label: Reset
+    info_label: Objectives
+    js_editor: /js/exercises-editor.js
+cpp-example-handler:
+    endpoint: /api/compile/cpp
+    ace_mode: c_cpp
+    file_type: cpp
+    menu_include: includes/cpp-examples-sidebar.html
+    search_data_url: /data/cpp-examples.json
+    run_label: Run
+    reset_label: Make Editable
+    info_label: Self Test
+    js_editor: /js/examples-editor.js
+...
