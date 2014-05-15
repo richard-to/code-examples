@@ -96,13 +96,42 @@ class HandlerMeta(object):
         self.test_basedir = test_basedir
 
     def convertToDestUrl(self, path):
+        """Gets source path to destination url."""
         return path.replace(self.src_basedir, '')
 
     def convertToDest(self, path):
+        """Gets source path to destination file path."""
         return path.replace(self.src_basedir, self.dest_basedir)
 
     def getTestDir(self):
+        """Gets the output directory for unit test files."""
         return self.test_basedir    
+
+    def toWebFriendlyFilename(self, filename):
+        """Renames source filename to a more web friendly filename.
+
+        Separates camel case with dash. Replaces underscores with dash.
+        Also makes filename all lowercase.
+
+        Returns:
+            Web friendly filename
+        """
+        web_url = []
+        last_was_lower = None
+        for c in filename:
+            is_lower = c.islower()
+            if c == '.':
+                break
+            elif not is_lower and last_was_lower:
+                web_url.append('-')
+                web_url.append(c.lower())
+            elif c == '_':
+                web_url.append('-')
+            else:
+                web_url.append(c.lower())
+            last_was_lower = is_lower
+        web_url.append(ExtKey.HTML)
+        return ''.join(web_url)
 
 
 class DirWalker(object):
@@ -211,7 +240,7 @@ class JavaExerciseHandler(object):
             handler_meta: Instance of HandlerMeta class
         """
         filename = ''.join([handle, ExtKey.JAVA])
-        output_name = ''.join([handle.lower(), ExtKey.HTML])
+        output_name = handler_meta.toWebFriendlyFilename(handle.lower())
         dest_dir = handler_meta.convertToDest(src_dir)
         dest_url = handler_meta.convertToDestUrl(src_dir)
         src_path = join(src_dir, handle, filename)
@@ -285,7 +314,7 @@ class JavaExampleHandler(object):
             src_dir: Directory of source file
             handler_meta: Instance of HandlerMeta class
         """          
-        output_name = filename.replace(ExtKey.JAVA, ExtKey.HTML).lower()
+        output_name = handler_meta.toWebFriendlyFilename(filename)
         dest_dir = handler_meta.convertToDest(src_dir)
         dest_url = handler_meta.convertToDestUrl(src_dir)
         src_path = join(src_dir, filename)
@@ -352,7 +381,7 @@ class CPPExampleHandler(object):
             src_dir: Directory of source file
             handler_meta: Instance of HandlerMeta class
         """        
-        output_name = filename.replace(ExtKey.CPP, ExtKey.HTML).lower()
+        output_name = handler_meta.toWebFriendlyFilename(filename)
         dest_dir = handler_meta.convertToDest(src_dir)
         dest_url = handler_meta.convertToDestUrl(src_dir)
         src_path = join(src_dir, filename)
@@ -402,8 +431,9 @@ class SearchDataWriterJSON(object):
             f.write(json.dumps(data))        
 
 
-# Typical build setup
+
 def main():
+    """Typical setup for build script."""
 
     # Load Build Settings
     settings = None
