@@ -1,7 +1,6 @@
 /*
 ---
-title: Assigning String Variables
-tags: string variables assign
+title: String Assignment
 exercises: |
     1. Make the program print the following output using only the outputString variable:
       <br />   
@@ -15,7 +14,7 @@ output: |
 ...
 */
 
-class StringVariableAssign
+class StringAssignment
 {
     public static void main(String[] args)
     {
