@@ -130,7 +130,7 @@ class CodebotService(object):
             workspace.directory, workspace.classname, self.type)
         stdout, stderr = proc.communicate()
 
-        #workspace.remove()
+        workspace.remove()
 
         if stderr:
             return stderr
