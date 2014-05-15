@@ -16,7 +16,7 @@
         editor.getSession().setMode(options.mode);
         editor.setReadOnly(true);
 
-        document.getElementById('editor').style.fontSize='16px';
+        document.getElementById('editor').style.fontSize='14px';
         document.getElementById('editor').style.lineHeight='1.5';
 
         var masterContentEl = document.getElementById('master-content');

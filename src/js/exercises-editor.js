@@ -14,7 +14,7 @@
         editor.setTheme(options.theme);
         editor.getSession().setMode(options.mode);
 
-        document.getElementById('editor').style.fontSize='16px';
+        document.getElementById('editor').style.fontSize='14px';
         document.getElementById('editor').style.lineHeight='1.5';
 
         var masterContentEl = document.getElementById('master-content');
