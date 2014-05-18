@@ -5,7 +5,7 @@ tags: string
 exercises: |
     1. Make this program print **Hello World** one time instead of two.
     2. Make the program print:<br /><br />
-    **I, for one, welcome our new computer overlords**
+    **Hello Universe**
 
 output: |
     Hello World

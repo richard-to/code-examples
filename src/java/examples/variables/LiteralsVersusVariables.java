@@ -6,18 +6,18 @@ exercises: |
     2. Replace the literals with a variable.
 output: |
     Example using literals:
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
+    Hello World
+    Hello World
+    Hello World
+    Hello World
+    Hello World
 
     Example using variable:
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
-    Hello World!
+    Hello World
+    Hello World
+    Hello World
+    Hello World
+    Hello World
 ...
 */
 
@@ -27,17 +27,17 @@ public class LiteralsVersusVariables
     {
         System.out.println("Example using literals:");
         
-        System.out.println("Hello World!");
-        System.out.println("Hello World!");
-        System.out.println("Hello World!");
-        System.out.println("Hello World!");
-        System.out.println("Hello World!");
+        System.out.println("Hello World");
+        System.out.println("Hello World");
+        System.out.println("Hello World");
+        System.out.println("Hello World");
+        System.out.println("Hello World");
         
         System.out.println();
 
         System.out.println("Example using a variable:");
 
-        String output = "Hello World!";
+        String output = "Hello World";
         System.out.println(output);
         System.out.println(output);
         System.out.println(output);
