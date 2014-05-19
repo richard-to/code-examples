@@ -2,8 +2,8 @@
 ---
 title: Scientific notation
 exercises: |
-    1. What is a benefit of using scientific notation instead of a double?
-    2. Declare a variable named **yourScientific** and assign it the value of 92310323.33 using scientific notation.
+    1. What is a benefit of using scientific notation?
+    2. Define a variable named **yourScientific** and assign it the value of 92310323.33 using scientific notation.
 output: |
     7.0E-5
     7.0E-5

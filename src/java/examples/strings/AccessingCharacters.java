@@ -2,7 +2,7 @@
 ---
 title: Accessing characters
 exercises: |
-    1. What data type does the method **charAt** return? Why is it not a String?
+    1. What data type does the method **charAt** return?
     2. How would you get the 1st character in the String?
     3. How would you get the last character in the String?
     4. What if you tried getting the 100th character?

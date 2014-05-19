@@ -1,6 +1,6 @@
 /*
 ---
-title: Literals versus Variables
+title: Literals versus variables
 exercises: |
     1. Replace **Hello World** with **Hello Universe!**. Was it easier using literals or variables?
     2. Replace the literals with a variable.
