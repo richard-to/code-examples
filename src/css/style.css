@@ -141,15 +141,13 @@ div > h1:first-child {
     top: 0;    
 }
 
-.sidebar.show,
-.sidebar:hover {
+.sidebar.show {
     overflow-y: auto;
     transition: width 300ms ease-in;
     width: 250px;    
 }
 
-.sidebar-left.show,
-.sidebar-left:hover {
+.sidebar-left.show {
     width: 325px;
 }
 
@@ -229,8 +227,7 @@ div > h1:first-child {
     width: 325px;
 }
 
-.sidebar.show .sidebar-wrap,
-.sidebar:hover .sidebar-wrap {
+.sidebar.show .sidebar-wrap {
     display: block;  
 }
 
@@ -247,8 +244,7 @@ div > h1:first-child {
     width: auto;
 }
 
-.sidebar.show .arrow-wrap,
-.sidebar:hover .arrow-wrap {
+.sidebar.show .arrow-wrap {
     display: none;
 }
 
