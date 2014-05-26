@@ -12,6 +12,10 @@ h1 {
     font-size: 20px;
 }
 
+a {
+    color: #47a447;
+}
+
 div > h1:first-child {
     margin-top: 0;
 }
@@ -192,7 +196,7 @@ div > h1:first-child {
 }
 
 
-.sidebar  a {
+.menu-items a {
     display: inline-block;
     color: #222;
     padding: 5px 15px;    
@@ -200,11 +204,7 @@ div > h1:first-child {
     width: 100%;    
 }
 
-.menu-items a {
-    font-weight: bold;
-}
-
-.sidebar a:hover {
+.menu-items a:hover {
     background: #ececec;
 }
 
