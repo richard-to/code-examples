@@ -6,7 +6,7 @@ type: stub
 ...
 */
 
-public class Variables1
+public class Ex1
 {
     private String greeting;
 
