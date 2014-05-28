@@ -3,7 +3,7 @@ src-dir: src
 site-dir: site
 test-dir: api_server/instance/tests
 data-dir: data
-exercises-dir: exercises
+exercises-dir: src/java/exercises
 templates-dir: src/_templates
 examples-tpl: examples.html
 exercises-tpl: exercises.html

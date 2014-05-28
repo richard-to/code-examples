@@ -228,8 +228,11 @@ class JavaExerciseHandler(object):
 
         Returns:
             Whether folder contains Java exercise files
-        """         
-        return isdir(handle_path) and handle_path.endswith(join(self.exercise_folder, handle))
+        """
+        filename = ''.join([handle, ExtKey.JAVA])
+        return (isdir(handle_path) and 
+                handle_path.startswith(self.exercise_folder) and 
+                exists(join(handle_path, filename)))
 
     def process(self, handle, src_dir, handler_meta):
         """Extracts metadata from Java exercise files and creates HTML file
