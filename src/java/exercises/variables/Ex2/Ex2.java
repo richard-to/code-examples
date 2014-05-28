@@ -9,13 +9,13 @@ type: stub
 ...
 */
 
-public class Variables2
+public class Ex2
 {
     private int number1;
     private int number2;
     private int product;
 
-    public Variables2()
+    public Ex2()
     {
         //INSERT_SNIPPET
 

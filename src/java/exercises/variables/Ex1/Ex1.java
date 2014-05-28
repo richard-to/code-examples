@@ -10,7 +10,7 @@ public class Ex1
 {
     private String greeting;
 
-    public Variables1()
+    public Ex1()
     {
         //INSERT_SNIPPET
 

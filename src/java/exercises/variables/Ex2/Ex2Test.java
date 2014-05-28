@@ -1,27 +1,27 @@
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class Variables2Test
+public class Ex2Test
 {
-    @Test(description="Test number 1 is greater than 100")
+    @Test(description="Test number1 is greater than 100")
     public void testNumber1Value()
     {
-        Variables2 variables = new Variables2();
-        Assert.assertTrue(variables.getNumber1() > 100);
+        Ex2 ex2 = new Ex2();
+        Assert.assertTrue(ex2.getNumber1() > 100);
     }
 
-    @Test(description="Test number 1 is greater than 100")
+    @Test(description="Test number2 is greater than 100")
     public void testNumber2Value()
     {
-        Variables2 variables = new Variables2();
-        Assert.assertTrue(variables.getNumber2() > 100);
+        Ex2 ex2 = new Ex2();
+        Assert.assertTrue(ex2.getNumber2() > 100);
     }
 
-    @Test(description="Test the product of number 1 and number 2 is correct")
+    @Test(description="Test the product of number1 and number2 is correct")
     public void testProduct()
     {
-        Variables2 variables = new Variables2();
+        Ex2 ex2 = new Ex2();
         Assert.assertEquals(
-            variables.getNumber1() * variables.getNumber2(), variables.getProduct());
+            ex2.getNumber1() * ex2.getNumber2(), ex2.getProduct());
     }
 }
