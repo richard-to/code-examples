@@ -243,7 +243,7 @@ class JavaExerciseHandler(object):
             handler_meta: Instance of HandlerMeta class
         """
         filename = ''.join([handle, ExtKey.JAVA])
-        output_name = handler_meta.toWebFriendlyFilename(handle.lower())
+        output_name = handler_meta.toWebFriendlyFilename(filename)
         dest_dir = handler_meta.convertToDest(src_dir)
         dest_url = handler_meta.convertToDestUrl(src_dir)
         src_path = join(src_dir, handle, filename)
