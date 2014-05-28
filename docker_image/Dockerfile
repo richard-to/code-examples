@@ -15,6 +15,9 @@ ADD ./ReadableListener.java /home/codebot/ReadableListener.java
 RUN chown codebot:codebot /home/codebot/ReadableListener.java
 RUN /usr/bin/javac -cp .:/usr/share/java/testng.jar /home/codebot/ReadableListener.java
 
+ADD ./AbstractOutputTest.java /home/codebot/AbstractOutputTest.java
+RUN chown codebot:codebot /home/codebot/AbstractOutputTest.java
+
 USER codebot
 ENV HOME /home/codebot
 WORKDIR /home/codebot

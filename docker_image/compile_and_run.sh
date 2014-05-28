@@ -15,7 +15,7 @@ if [ $TYPE = 'java-example' ]; then
         fi
     fi
 elif [ $TYPE = 'java-exercise' ]; then
-    /usr/bin/javac -cp $CLASSPATH -d . code/$FILE.java code/$TESTFILE.java
+    /usr/bin/javac -cp $CLASSPATH -d . code/$FILE.java code/$TESTFILE.java AbstractOutputTest.java
     if [ $? -eq 0 ]; then
         /usr/bin/java -cp $CLASSPATH org.testng.TestNG -listener ReadableListener  -testname "$FILE Tests" -suitename "$FILE Test Suite" -usedefaultlisteners false -testclass $TESTFILE
         if [ $? -eq 124 ]; then
