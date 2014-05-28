@@ -1,3 +1,4 @@
+import hashlib
 import os
 import random
 import re
@@ -29,6 +30,7 @@ class DockerProcFactory(object):
 class Workspace(object):
     def __init__(self):
         self.filepath = None
+        self.test_dir = None
         self.test_filepath = None       
         self.directory = None
         self.filename = None
@@ -45,8 +47,15 @@ class Workspace(object):
         self.filepath = join(self.directory, self.filename)
         return self
 
-    def write_stub(self, code, tests_dir, stub_marker):
-        stub_filepath = join(tests_dir, self.filename)
+    def set_testdir(self, base_dir, path):
+        print path
+        m = hashlib.md5()        
+        m.update(path)
+        self.test_dir = join(base_dir, m.hexdigest())
+        return self
+
+    def write_stub(self, code, stub_marker):
+        stub_filepath = join(self.test_dir, self.filename)
         with open(stub_filepath, 'r') as file:
             code = file.read().replace(stub_marker, code)
         return self.write_code(code)
@@ -57,10 +66,10 @@ class Workspace(object):
             file.write(code)
         return self
 
-    def copy_tests(self, test_dir, classname, test_suffix, ext):
+    def copy_tests(self, classname, test_suffix, ext):
         test_filename = ''.join([classname, test_suffix, ext])
         self.test_filepath = join(self.directory, test_filename)
-        shutil.copyfile(join(test_dir, test_filename), self.test_filepath)
+        shutil.copyfile(join(self.test_dir, test_filename), self.test_filepath)
         return self
 
     def remove(self):
@@ -94,19 +103,21 @@ class WorkspaceFactory(object):
             .set_filepath(classname, ext).write_code(code)
         return workspace
 
-    def create_exercise(self, classname, code, prefix, ext):
+    def create_exercise(self, classname, code, prefix, ext, url_path):
         workspace = Workspace()
         workspace.set_directory(self.base_dir, prefix) \
             .set_filepath(classname, ext).write_code(code) \
-            .copy_tests(self.test_dir, classname, self.test_suffix, ext)
+            .set_testdir(self.test_dir, url_path) \
+            .copy_tests(classname, self.test_suffix, ext)
         return workspace
 
-    def create_stub_exercise(self, classname, code, prefix, ext):
+    def create_stub_exercise(self, classname, code, prefix, ext, url_path):
         workspace = Workspace()
         workspace.set_directory(self.base_dir, prefix) \
             .set_filepath(classname, ext) \
-            .write_stub(code, self.test_dir, self.test_stub_marker) \
-            .copy_tests(self.test_dir, classname, self.test_suffix, ext)
+            .set_testdir(self.test_dir, url_path) \
+            .write_stub(code, self.test_stub_marker) \
+            .copy_tests(classname, self.test_suffix, ext)
         return workspace
 
 
@@ -122,7 +133,7 @@ class CodebotService(object):
     def is_valid_classname(self, classname):
         return self.classname_regex.match(classname)
 
-    def create_workspace(self, classname, code):
+    def create_workspace(self, classname, code, url_path):
         return self.workspace_factory.create_example(classname, code, self.prefix, self.ext)
 
     def run(self, workspace):
@@ -159,13 +170,13 @@ class JaveExerciseService(CodebotService):
             '.java',
             'java-exercise')
 
-    def create_workspace(self, classname, code):
-        return self.workspace_factory.create_exercise(classname, code, self.prefix, self.ext)
+    def create_workspace(self, classname, code, url_path):
+        return self.workspace_factory.create_exercise(classname, code, self.prefix, self.ext, url_path)
 
 
 class JaveStubExerciseService(JaveExerciseService):
-    def create_workspace(self, classname, code):
-        return self.workspace_factory.create_stub_exercise(classname, code, self.prefix, self.ext)
+    def create_workspace(self, classname, code, url_path):
+        return self.workspace_factory.create_stub_exercise(classname, code, self.prefix, self.ext, url_path)
 
 
 class CppExampleService(CodebotService):

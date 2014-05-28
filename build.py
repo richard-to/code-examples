@@ -1,5 +1,6 @@
 import distutils.core
 import json 
+import hashlib
 
 from os import listdir, makedirs
 from os.path import isfile, isdir, join, basename, exists, splitext, getmtime
@@ -102,6 +103,12 @@ class HandlerMeta(object):
     def convertToDest(self, path):
         """Gets source path to destination file path."""
         return path.replace(self.src_basedir, self.dest_basedir)
+
+    def generateTestDir(self, path):
+        """Generates a test directory based on expected url path"""
+        m = hashlib.md5()        
+        m.update(path)
+        return m.hexdigest()
 
     def getTestDir(self):
         """Gets the output directory for unit test files."""
@@ -251,7 +258,13 @@ class JavaExerciseHandler(object):
         dest_url_path = join(dest_url, output_name)
 
         testfile = ''.join([handle, self.test_file_suffix, ExtKey.JAVA])
-        test_dir = handler_meta.getTestDir()
+        test_dir = join(handler_meta.getTestDir(), handler_meta.generateTestDir(dest_url_path))
+        
+        if not exists(test_dir):
+            makedirs(test_dir)
+
+        if not exists(dest_dir):
+            makedirs(dest_dir)
 
         code, meta = parseCodeFile(src_path)
         code = ''.join(code)
@@ -267,9 +280,6 @@ class JavaExerciseHandler(object):
         else:
             with open(join(test_dir, filename), 'w') as fw:
                 fw.write(code)
-
-        if not exists(dest_dir):
-            makedirs(dest_dir)
 
         for key in self.template_vars:
             meta[key] = self.template_vars[key]
