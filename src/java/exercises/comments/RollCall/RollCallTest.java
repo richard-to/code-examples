@@ -4,7 +4,7 @@ import java.io.PrintStream;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class RunawayTest extends AbstractOutputTest
+public class RollCallTest extends AbstractOutputTest
 {
     @Test(description="Test that correct output is printed to console")
     public void testRunawayComments()
@@ -12,11 +12,11 @@ public class RunawayTest extends AbstractOutputTest
         ByteArrayOutputStream streamOut = captureOut();
         
         String[] args = {};        
-        Runaway.main(args);
+        RollCall.main(args);
         String output = streamOut.toString();
 
         revertStreams();
 
-        Assert.assertEquals(output, "Hello World\nHello Universe\n");
+        Assert.assertEquals(output, "Hello, my name is Harold Allnut.");
     }
 }

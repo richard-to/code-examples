@@ -2,7 +2,13 @@
 ---
 title: Hello Universe
 instructions: |
-    1. Print `Hello Universe` to the console. Make sure a newline is not added.
+    Aliens have arrived on Earth. There's nothing we can do but welcome them.
+
+    **Output**
+    
+    Print the following to the console on one line. Make sure a new line is not added to the end.
+
+    `I, for one, welcome our new alien overlords` 
 ...
 */
 
