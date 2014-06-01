@@ -2,16 +2,17 @@
 ---
 title: String assignment
 exercises: |
-    1. Make the program print the following using only the outputString variable:
-    <br />   
-    **Hello Earth<br />
-    Hello World<br />
-    Hello Universe**
-    1. Create a variable named **myString** and assign it to your name.
-    <br />   
-    **Hello Earth<br />
-    Hello World<br />
-    Hello Universe**      
+    1. Make the program print the following using only the outputString variable: 
+            
+            Hello Earth
+            Hello World
+            Hello Universe
+
+    2. Create a variable named `myString` and assign it to your name.
+    
+            Hello Earth
+            Hello World
+            Hello Universe 
 output: |
     Hello Earth
     Hello World

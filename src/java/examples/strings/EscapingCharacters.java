@@ -3,9 +3,9 @@
 title: Escaping characters
 exercises: |
     1. What happens if you remove the backslashes from output1?
-    2. What does **\n** do in **output4**? Why is a backslash necessary here?
-    3. What does **\t** do in **output3**?
-    4. What happens if you remove one of the backslashes from **output4**
+    2. What does `\n` do in `output4`? Why is a backslash necessary here?
+    3. What does `\t` do in `output3`?
+    4. What happens if you remove one of the backslashes from `output4`
     5. Are there other escape characters?
 output: |
     I said, "Hello World."

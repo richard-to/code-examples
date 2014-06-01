@@ -33,7 +33,7 @@ java-exercise-handler:
     menu_include: includes/java-exercises-sidebar.html
     run_label: Check your answer
     reset_label: Reset
-    info_label: Objectives
+    info_label: Problem
     js_editor: /js/exercises-editor.js
 cpp-example-handler:
     endpoint: /api/compile/cpp

@@ -2,12 +2,12 @@
 ---
 title: Chars and ints
 exercises: |
-    1. Why does **anotherChar5** print **5** and not **53**? What does this say about chars and ints?
-    2. Why are **num5** and **char5** not equal?
-    3. Why are **num53** and **char5** equal?
-    4. What char value is equal to the int value **55**? 
-    5. What int value is equal to the char value **'3'**?
-    6. Define a char named **yourChar** and assign it the integer value **1**? What is the result?
+    1. Why does `anotherChar5` print `5` and not `53`? What does this say about chars and ints?
+    2. Why are `num5` and `char5` not equal?
+    3. Why are `num53` and `char5` equal?
+    4. What char value is equal to the int value `55`? 
+    5. What int value is equal to the char value `'3'`?
+    6. Define a char named `yourChar` and assign it the integer value `1`? What is the result?
 output: |
     5
     53

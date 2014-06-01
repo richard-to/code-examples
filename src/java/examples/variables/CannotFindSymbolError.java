@@ -4,7 +4,7 @@ title: Cannot find symbol error
 exercises: |
     1. What line is the first error on?
     2. What line is the second error on?
-    3. What data type is **aNumber**?
+    3. What data type is `aNumber`?
     4. Why does Java need to know the data type of a variable?
     5. How can we fix the program?
 output: |

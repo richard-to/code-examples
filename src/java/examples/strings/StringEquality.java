@@ -2,9 +2,9 @@
 ---
 title: String Equality
 exercises: |
-    1. Why does **output1** equal **output3** when using the method **equals**, but when using the comparison operator **==**?
-    2. Why does **output1** equal **output2** when using the comparison operator in this case?
-    3. When comparing literal String values, is it better to use **equals** or **==**?
+    1. Why does `output1` equal `output3` when using the method `equals`, but when using the comparison operator `==`?
+    2. Why does `output1` equal `output2` when using the comparison operator in this case?
+    3. When comparing literal String values, is it better to use `equals` or `==`?
 output: |
     Hello World
     Hello World

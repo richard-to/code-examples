@@ -4,7 +4,7 @@
 title: Variable already defined error
 exercises: |
     1. What line is this error on?
-    2. What does the error message mean by **already defined**?
+    2. What does the error message mean by `already defined`?
     3. How are variables defined? Can two variables have the same name?
 output: |
     code/VariableAlreadyDefinedError.java:6: error: variable output is already defined in method main(String[])

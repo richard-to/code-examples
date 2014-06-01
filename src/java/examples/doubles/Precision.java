@@ -2,7 +2,7 @@
 ---
 title: Double Precision
 exercises: |
-    1. Why are **result1** and **result2** not equal?
+    1. Why are `result1` and `result2` not equal?
     2. Find another case where arithmetic does not lead to expected reuslts.
     3. What is a way to check for equality correctly?
 output: |

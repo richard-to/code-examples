@@ -1,16 +1,16 @@
 /*
 ---
-title: Variables 1
-instructions: Create a **String** variable named **greeting** and set it equal to **Hello**.
+title: Greeting
+instructions: Define a `String` variable named `greeting` and set it equal to `Hello Universe`.
 type: stub
 ...
 */
 
-public class Ex1
+public class Greeting
 {
     private String greeting;
 
-    public Ex1()
+    public Greeting()
     {
         //INSERT_SNIPPET
 

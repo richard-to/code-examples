@@ -7,7 +7,7 @@ import org.testng.annotations.Test;
 public class HelloUniverseTest extends AbstractOutputTest
 {
     @Test(description="Test that 'Hello Universe' is printed to console")
-    public void testGreetingVariable()
+    public void testOutput()
     {
         ByteArrayOutputStream streamOut = captureOut();
         

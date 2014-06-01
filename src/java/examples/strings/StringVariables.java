@@ -3,10 +3,11 @@
 title: String variables
 exercises: |
     1. Make the the program print:
-    <br />   
-    **Hello Universe<br />
-     Hello Universe<br />
-    Hello Universe**
+    
+            Hello Universe
+            Hello Universe
+            Hello Universe
+            
     2. How is this different from using literals only?
     3. Change the program to use literals only.
 output: |

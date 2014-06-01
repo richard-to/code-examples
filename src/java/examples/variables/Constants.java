@@ -2,9 +2,9 @@
 ---
 title: Constant variables
 exercises: |
-    1. Change the value of **SECONDS_IN_MINUTE** to 120 within the main method.
+    1. Change the value of `SECONDS_IN_MINUTE` to 120 within the main method.
     2. How is the syntax for declaring constants different than say instance variables?
-    3. Create constants variables of type, **boolean**, **float**, and **char**.
+    3. Create constants variables of type, `boolean`, `float`, and `char`.
     4. What may be a good use for constant variables?
     5. Why may it be a good convention to use uppercase letters for constants?
 output: |

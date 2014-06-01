@@ -12,12 +12,64 @@ h1 {
     font-size: 20px;
 }
 
+h2 {
+    color: #aaa;
+    font-size: 13px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-size: 13px;
+}
+
+
 a {
     color: #47a447;
 }
 
+p {
+    font-size: 14px;
+    line-height: 1.4;
+    margin: 15px 0;
+}
+
+ol,
+ul {
+    color: #000;
+    font-size: 14px;
+    margin: 0 0 0 20px;
+    padding: 0;
+}
+
+ol {
+    list-style: decimal;
+}
+
+li {
+    line-height: 1.4;    
+    margin: 10px 0;    
+    padding: 0;
+}
+
 div > h1:first-child {
     margin-top: 0;
+}
+
+code {
+    background: #ececec;    
+    padding: 1px 2px;
+}
+
+pre {
+    border: 1px solid #ddd;
+    background: #ececec;
+    padding: 10px;
+}
+
+pre code {
+    background: none;
+    padding: 0;
 }
 
 .hidden {
@@ -152,7 +204,7 @@ div > h1:first-child {
 }
 
 .sidebar-left.show {
-    width: 325px;
+    width: 375px;
 }
 
 .sidebar-left {
@@ -160,58 +212,21 @@ div > h1:first-child {
     right: 0;
 }
 
+.sidebar h3,
 .sidebar h2 {
-    color: #aaa;
-    font-size: 13px;
-    font-weight: normal;
-    margin: 0;
-    padding: 15px 15px 5px 15px;
-    text-transform: uppercase;
-}
-
-.sidebar h3 {
-    font-size: 13px;
     margin: 0;
     padding: 15px 15px 5px 15px;
 }
 
-.sidebar ul {
+ul.menu-items {
     font-size: 13px;
     list-style: none;
     margin: 0;
     padding: 0;
 }
 
-.sidebar ol {
-    color: #000;
-    font-size: 14px;
-    list-style: decimal;
-    margin: 0 0 0 35px;
-    padding: 0;
-}
-
-.sidebar ol li {
-    margin: 20px 0;
-    padding: 0;
-}
-
-
-.menu-items a {
-    display: inline-block;
-    color: #222;
-    padding: 5px 15px;    
-    text-decoration: none;
-    width: 100%;    
-}
-
-.menu-items a:hover {
-    background: #ececec;
-}
-
-.sidebar p {
-    font-size: 14px;
-    margin: 4px 0;
-    padding: 0 15px;
+ul.menu-items li {
+    margin: 0;
 }
 
 .sidebar li p {
@@ -224,7 +239,7 @@ div > h1:first-child {
 }
 
 .sidebar-left .sidebar-wrap {
-    width: 325px;
+    width: 375px;
 }
 
 .sidebar.show .sidebar-wrap {
@@ -246,6 +261,23 @@ div > h1:first-child {
 
 .sidebar.show .arrow-wrap {
     display: none;
+}
+
+.menu-items a {
+    display: inline-block;
+    color: #222;
+    padding: 5px 15px;    
+    text-decoration: none;
+    width: 100%;    
+}
+
+.menu-items a:hover {
+    background: #ececec;
+}
+
+#instructions-container
+{
+    padding: 0 15px;
 }
 
 #main-container {

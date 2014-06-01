@@ -2,10 +2,10 @@
 ---
 title: Readable variables names
 exercises: |
-    1. What is the purpose of the variable **$dsf$_dfs**?
+    1. What is the purpose of the variable `$dsf$_dfs`?
     2. Which variable names are easiest to read?
     3. Is it beneficial to name variables clearly?
-    4. How would you name **$dsf$_dfs** if it represents degrees in fahrenheit?
+    4. How would you name `$dsf$_dfs` if it represents degrees in fahrenheit?
 output: |
     451
     20

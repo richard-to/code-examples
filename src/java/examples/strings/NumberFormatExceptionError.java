@@ -2,7 +2,7 @@
 ---
 title: Number format exception error
 exercises: |
-    1. Why does **parseInt** not work?
+    1. Why does `parseInt` not work?
     3. What types of String values will throw this type of error?
 output: |
     Exception in thread "main" java.lang.NumberFormatException: For input string: "a20"

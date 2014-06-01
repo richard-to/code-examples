@@ -2,12 +2,13 @@
 ---
 title: Multi-line comments
 exercises: |
-    1. What does the method **aMysteryMethod** do?
+    1. What does the method `aMysteryMethod` do?
     2. Make the program print: 
-    <br />
-    **Hello World<br />
-    Hello Earth<br />
-    Hello Universe**
+
+            Hello World
+            Hello Earth
+            Hello Universe
+        
     3. Change this program to use single line comments.
     4. What are some benefits of multi-line comments?
 output: |

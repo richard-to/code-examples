@@ -3,9 +3,10 @@
 title: Hello Universe
 tags: string
 exercises: |
-    1. Make this program print **Hello Universe** one time instead of two.
-    2. Make the program print:<br /><br />
-    **Hello Universe**
+    1. Make this program print `Hello Universe` one time instead of two.
+    2. Make the program print:
+    
+            Hello Universe
 
 output: |
     Hello Universe

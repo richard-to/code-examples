@@ -3,8 +3,8 @@
 title: Int variables
 exercises: |
     1. Why do you get an error if you delete line 6?
-    2. What happens if you change the value of **anInteger** to **10.5** or **55.2**?
-    3. Define an int named **yourInteger** and assign a value to it.
+    2. What happens if you change the value of `anInteger` to `10.5` or `55.2`?
+    3. Define an int named `yourInteger` and assign a value to it.
 output: |
     -200
     25

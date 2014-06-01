@@ -2,8 +2,8 @@
 ---
 title: Type casting
 exercises: |
-    1. Why does **aShort** not equal **100000**?
-    2. Declare a variable of type **long** and assign that value to an **int** variable?
+    1. Why does `aShort` not equal `100000`?
+    2. Declare a variable of type `long` and assign that value to an `int` variable?
 output: |
     100000.0
     100000

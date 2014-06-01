@@ -2,9 +2,9 @@
 ---
 title: More String Equality
 exercises: |
-    1. Why does **output1** not equal **output2** when using the comparison operator?
-    2. Why does **output1** equal **output3** when using the comparison operator?
-    3. Why does changing the value of **output3** not effect the value of **output1**?
+    1. Why does `output1` not equal `output2` when using the comparison operator?
+    2. Why does `output1` equal `output3` when using the comparison operator?
+    3. Why does changing the value of `output3` not effect the value of `output1`?
 output: |
     Hello World
     Hello World

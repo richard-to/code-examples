@@ -2,11 +2,11 @@
 ---
 title: Byte data type
 exercises: |
-    1. Are the limits of **bytes** greater than **ints**?
-    2. What happens if change the value of **aByte** to a value smaller than **MIN_VALUE**?
-    3. What happens if you change the value of **aByte** to **10.5** or **55.2**?
-    4. Define a byte named **yourByte** and assign a value to it.
-    5. Reassign **yourByte** to a different value.
+    1. Are the limits of `bytes` greater than `ints`?
+    2. What happens if change the value of `aByte` to a value smaller than `MIN_VALUE`?
+    3. What happens if you change the value of `aByte` to `10.5` or `55.2`?
+    4. Define a byte named `yourByte` and assign a value to it.
+    5. Reassign `yourByte` to a different value.
 output: |
     20
     -128

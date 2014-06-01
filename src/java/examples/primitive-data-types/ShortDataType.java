@@ -2,12 +2,12 @@
 ---
 title: Short data type
 exercises: |
-    1. Are the limits of **shorts** greater than **bytes**?
-    2. Are the limits of **shorts** greater than **ints**?
-    3. What happens if change the value of **aShort** to a value greater than **MAX_VALUE**?
-    4. What happens if you change the value of **aShort** to **10.5** or **55.2**?
-    5. Define a short named **yourShort** and assign a value to it.
-    6. Reassign **yourShort** to a different value.
+    1. Are the limits of `shorts` greater than `bytes`?
+    2. Are the limits of `shorts` greater than `ints`?
+    3. What happens if change the value of `aShort` to a value greater than `MAX_VALUE`?
+    4. What happens if you change the value of `aShort` to `10.5` or `55.2`?
+    5. Define a short named `yourShort` and assign a value to it.
+    6. Reassign `yourShort` to a different value.
 output: |
     20
     -32768

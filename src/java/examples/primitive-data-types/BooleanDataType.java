@@ -3,7 +3,7 @@
 title: Boolean data type
 exercises: |
     1. Define a boolean and assign a value. 
-    2. Are **true** and **false** the only valid values?
+    2. Are `true` and `false` the only valid values?
 output: |
     true
     false

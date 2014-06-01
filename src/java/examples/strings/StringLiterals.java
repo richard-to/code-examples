@@ -4,15 +4,16 @@ title: String literals
 exercises: |
     1. Why is it an error if you use single quotes instead of double quotes?
     2. Manipulate the literals to make the program print:
-      <br />   
-      **Hello Universe<br />
-      Hello Universe<br />
-      Hello Universe**
+
+            Hello Universe
+            Hello Universe
+            Hello Universe
+
     3. Make the program print:
-      <br />   
-      **Hello World<br />
-      Hello Earth<br />
-      Hello Universe** 
+    
+            Hello World
+            Hello Earth
+            Hello Universe
 output: |
     Hello World
     Hello World

@@ -2,9 +2,9 @@
 ---
 title: String to Number
 exercises: |
-    1. Is the String **aNumber** equal to the int **anInt**?
+    1. Is the String `aNumber` equal to the int `anInt`?
     2. How can we parse a String to an int? to a double?
-    3. Parse the value of **aNumber** to a short named **aShort**.
+    3. Parse the value of `aNumber` to a short named `aShort`.
 output: |
     20
     20

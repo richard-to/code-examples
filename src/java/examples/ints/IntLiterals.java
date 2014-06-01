@@ -2,7 +2,7 @@
 ---
 title: Int literals
 exercises: |
-    1. What happens if you change the literal value of **25** or **25.5**?
+    1. What happens if you change the literal value of `25` or `25.5`?
     2. Make the program print a few more literal int values.
     3. What is the largest int value you can print?
     4. What is the smallest int value you can print?

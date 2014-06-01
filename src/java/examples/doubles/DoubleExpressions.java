@@ -3,7 +3,7 @@
 title: Double expressions
 exercises: |
     1. What do you make of the result of modulus with doubles?
-    1. Write an expression divides **20.0** by **3**. How is this result different than with ints?
+    1. Write an expression divides `20.0` by `3`. How is this result different than with ints?
     2. Write an expression that tests that order of operations apply. 
 output: |
     10.7

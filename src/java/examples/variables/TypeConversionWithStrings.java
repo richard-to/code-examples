@@ -2,9 +2,9 @@
 ---
 title: Type conversion with strings
 exercises: |
-    1. Why is **output1** and **output2** different? What does this say about type conversion with Strings?
+    1. Why is `output1` and `output2` different? What does this say about type conversion with Strings?
     2. Does this also happen for booleans, doubles and floats?
-    3. What happens if you change **output1** to type **int** instead of **String**?
+    3. What happens if you change `output1` to type `int` instead of `String`?
 output: |
     Hello World 1020
     Hello World 30

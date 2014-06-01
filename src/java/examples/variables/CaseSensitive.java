@@ -2,10 +2,10 @@
 ---
 title: Variables are case sensitive
 exercises: |
-    1. Why does this program not use the **equals** method to test equality?
-    2. In other words, why does this program use the **==** operator?
-    3. Why is **output** equal to **oUtPuT**?
-    4. How can we prove that **output** and **oUtPuT** are indeed different variables?
+    1. Why does this program not use the `equals` method to test equality?
+    2. In other words, why does this program use the `==` operator?
+    3. Why is `output` equal to `oUtPuT`?
+    4. How can we prove that `output` and `oUtPuT` are indeed different variables?
     5. What are some reasons why naming variables like this is a bad idea?
 output: |
     Hello World
