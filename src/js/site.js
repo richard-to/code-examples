@@ -28,23 +28,27 @@
 
 
     var enableSearch = function(dataUrl) {
-        var searchEngine = new Bloodhound({
-            datumTokenizer: function(datum) { 
-                var keywords = datum.title + " " + datum.tags;
-                return Bloodhound.tokenizers.obj.whitespace(keywords); 
-            },            
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            prefetch: dataUrl,
-            remote: dataUrl
+        $.getJSON(dataUrl, function(data) {
+            var searchEngine = new Bloodhound({
+                datumTokenizer: function(datum) {
+                    var keywords = datum.title + " " + datum.tags;
+                    return Bloodhound.tokenizers.whitespace(keywords); 
+                },
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                local: data
+            });
+             
+            searchEngine.initialize();
+             
+            $('.search-input').typeahead(null, {
+                name: 'states',
+                displayKey: 'title',
+                source: searchEngine.ttAdapter()
+            }).on('typeahead:selected', function (object, datum) {
+                window.location.href = datum.url;
+            });
         });
-        searchEngine.initialize();
-        
-        $('.search-input').typeahead(null, {
-            displayKey: 'title',
-            source: searchEngine.ttAdapter()
-        }).on('typeahead:selected', function (object, datum) {
-            window.location.href = datum.url;
-        });
+
     };
     SiteService.enableSearch = enableSearch;
 

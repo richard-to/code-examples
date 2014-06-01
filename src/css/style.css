@@ -175,6 +175,10 @@ pre code {
     width: 300px;    
 }
 
+.tt-suggestion p {
+    margin: 10px 0;
+}
+
 .tt-cursor {
     background: #f1f1f1;
     cursor: pointer;
