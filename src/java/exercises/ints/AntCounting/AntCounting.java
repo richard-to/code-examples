@@ -15,8 +15,8 @@ instructions: |
     - The maximum number of ants is the maximum value an integer.
 
     **Output**
-        
-    - `antsNeeded` is the number of ants needed to fill the box.
+     
+    Print to the console the number of ants needed to fill the box.
 
     **Sample**
     
@@ -30,13 +30,8 @@ instructions: |
 
 public class AntCounting
 {
-    public static int checkDifference(int input)
+    public static void checkDifference(int numberAntsIn)
     {
-        int numberAnts = input;
-
-        // Assign the correct value to antsNeeded
-        int antsNeeded = 0;
-        
-        return antsNeeded;
+        int numberAnts = numberAntsIn;
     }
 }

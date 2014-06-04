@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class HelloUniverseTest extends AbstractOutputTest
 {
-    @Test(description="Test that 'Hello Universe' is printed to console")
+    @Test(description="Test that 'I, for one, welcome our new alien overlords' is printed to console")
     public void testOutput()
     {
         ByteArrayOutputStream streamOut = captureOut();
@@ -17,6 +17,6 @@ public class HelloUniverseTest extends AbstractOutputTest
 
         revertStreams();
 
-        Assert.assertEquals(output, "Hello Universe");
+        Assert.assertEquals(output, "I, for one, welcome our new alien overlords");
     }
 }
