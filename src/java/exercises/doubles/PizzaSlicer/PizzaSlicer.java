@@ -28,7 +28,7 @@ instructions: |
 
     **Output**
 
-    Print to the console the area of each slice of pizza
+    Print the area of each slice of pizza
     Correctly comment the code to print the following:
 
     **Sample**
