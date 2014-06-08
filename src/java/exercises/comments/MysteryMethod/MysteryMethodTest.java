@@ -4,15 +4,15 @@ import java.io.PrintStream;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class PickDoorTest extends AbstractOutputTest
+public class MysteryMethodTest extends AbstractOutputTest
 {
     @Test(description="Test that correct method is called")
     public void testMain()
     {
         ByteArrayOutputStream streamOut = captureOut();
-        
-        String[] args = {};        
-        PickDoor.main(args);
+
+        String[] args = {};
+        MysteryMethod.main(args);
         String output = streamOut.toString();
 
         revertStreams();

@@ -10,7 +10,7 @@ instructions: |
 
     **Output**
 
-    Correctly comment the coe to print the following:
+    Correctly comment the code to print the following:
 
         Hello, my name is Harold Allnut.
 ...
@@ -23,19 +23,19 @@ public class RollCall
         /*
          * This line prints "Hello"
          *
-        System.out.print("Hello");        
-        
-         * 
+        System.out.print("Hello");
+
+         *
          * This line prints a link to Harold's wikipedia page
-         *        
+         *
         System.out.print("Read about me at: http://en.wikipedia.org/wiki/Harold_Allnut");
 
-        /* 
+        /*
          * This line prints a ", my name is ";
-         *        
+         *
         System.out.print(", my name is ");
 
-        /* 
+        /*
          * This line prints "Harold Allnut."
          */
         System.out.print("Harold Allnut.");

@@ -1,12 +1,27 @@
 /*
 ---
-title: Pick a door
+title: Mystery method
 instructions: |
-    Uncomment the code that will print **ESREVINu OLLEh**
+    The human resistance is working on machine that can
+    encode messages.
+
+    Unfortunately the programmer was captured and no
+    one is sure which is the correct method since he
+    named them poorly. He did, however, write comments.
+
+    Can you uncomment the correct method?
+
+    **Given**
+
+    - The String `greeting` with value `Hello Universe`
+
+    **Output**
+
+        ESREVINu OLLEh
 ...
 */
 
-public class PickDoor
+public class MysteryMethod
 {
     public static void main(String args[])
     {
@@ -50,21 +65,21 @@ public class PickDoor
         String output = "";
         for (int i = input.length() - 1; i >= 0; --i)
         {
-            if (Character.isLowerCase(input.charAt(i))) 
+            if (Character.isLowerCase(input.charAt(i)))
             {
-                output += Character.toUpperCase(input.charAt(i));    
-            } 
-            else if (Character.isUpperCase(input.charAt(i))) 
+                output += Character.toUpperCase(input.charAt(i));
+            }
+            else if (Character.isUpperCase(input.charAt(i)))
             {
                 output += Character.toLowerCase(input.charAt(i));
             }
             else
             {
-                output += input.charAt(i);    
+                output += input.charAt(i);
             }
         }
         System.out.print(output);
-    }  
+    }
 
     // This method prints the input String in all caps
     public static void mysteryMethod4(String input)
@@ -78,9 +93,9 @@ public class PickDoor
             }
             else
             {
-                output += input.charAt(i);    
+                output += input.charAt(i);
             }
         }
         System.out.print(output);
-    }        
+    }
 }
